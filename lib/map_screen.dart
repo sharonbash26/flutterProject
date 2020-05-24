@@ -8,6 +8,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart' as loc;
 import 'package:provider/provider.dart';
 import 'model/user_location.dart';
+import 'package:intl/intl.dart';
 
 class MapScreen extends StatefulWidget {
   @override
@@ -47,7 +48,7 @@ class _MapScreenState extends State<MapScreen> {
         city = value;
         _placeSub?.cancel();
         Stream<QuerySnapshot> _snapshots =
-        Firestore.instance.collection(city.trim()).snapshots();
+            Firestore.instance.collection(city.trim()).snapshots();
         _placeSub = _snapshots.listen((QuerySnapshot snapshot) {
           final List<Flower> flowers = snapshot.documents
               .map((documentSnapshot) => Flower.fromJson(documentSnapshot.data))
@@ -59,6 +60,10 @@ class _MapScreenState extends State<MapScreen> {
         });
       });
     });
+    var now = DateTime.now();
+    String formattedDate = DateFormat('MM').format(now);
+    int myMonth = int.parse(formattedDate);
+    print(int.parse(formattedDate));
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blueAccent,
@@ -72,12 +77,13 @@ class _MapScreenState extends State<MapScreen> {
         child: Center(
           child: Column(
             children: <Widget>[
-//            _colorWidget(),
               Expanded(
                 child: ListView.builder(
                   itemCount: flowers.length,
                   itemBuilder: (context, i) {
-                    return Center(child: Text(flowers[i].name));
+                    return Center(
+                        child: Text(
+                            myMonth == flowers[i].date ? flowers[i].name : ""));
                   },
                 ),
               ),
@@ -112,35 +118,12 @@ class _MapScreenState extends State<MapScreen> {
   }
 
   Future<String> _getCity() async {
-    final coordinates = new Coordinates(_userLocation.latitude, _userLocation.longitude);
+    final coordinates =
+        new Coordinates(_userLocation.latitude, _userLocation.longitude);
     var addresses =
         await Geocoder.local.findAddressesFromCoordinates(coordinates);
     var first = addresses.first;
     List<String> arr = first.addressLine.split(',');
     return arr[1].toString();
   }
-
-//  Widget _colorWidget() {
-//    return StreamBuilder<City>(
-//        stream: _loadCityStream(),
-//        builder: (context, snapshot) {
-//          print("has data: ${snapshot.hasData}");
-//          final city = snapshot.hasData ? snapshot.data : null;
-//          return snapshot.hasData
-//              ? Text(
-//                  "${city.flowers[0].name}",
-//                  style: TextStyle(color: Colors.blueAccent, fontSize: 20),
-//                )
-//              : CircularProgressIndicator();
-//        });
-//  }
-
-//  Widget _loadCityFuture(){
-//    return FutureBuilder<Object>(
-//      future: null,
-//      builder: (context, snapshot) {
-//        return Text("");
-//      }
-//    );
-//  }
 }

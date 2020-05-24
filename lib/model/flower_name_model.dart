@@ -1,9 +1,7 @@
-class Person {
-  String name, address;
+class FlowerNameModel {
+  String name;
 
-  Person.name(this.name);
-
-  Person.address(this.address);
+  FlowerNameModel.name(this.name);
 
   @override
   String toString() => name;

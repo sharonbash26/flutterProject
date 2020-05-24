@@ -34,10 +34,8 @@ dependencies:
   location: ^3.0.2
   provider: ^4.0.5+1
   geocoder: ^0.2.1
-
-
-
-
+  intl: ^0.16.1
+  simple_autocomplete_formfield: ^0.2.7
 
 dev_dependencies:
   flutter_test:
