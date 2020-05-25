@@ -1,9 +1,7 @@
 import 'dart:async';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:simple_autocomplete_formfield/simple_autocomplete_formfield.dart';
-
 import 'model/flower.dart';
 import 'model/flower_address_model.dart';
 
@@ -65,7 +63,7 @@ class _SearchFlowerState extends State<SearchFlower> {
                 onSaved: (value) =>
                     setState(() => _flowerAddressSelected = value),
                 validator: (person) =>
-                    person == null ? 'Invalid person.' : null,
+                    person == null ? 'העיר לא קיימת' : null,
               ),
               SizedBox(
                 height: 20,
