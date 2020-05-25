@@ -13,8 +13,6 @@ class AddFlowerScreen extends StatefulWidget {
 }
 
 class _AddFlowerScreenState extends State<AddFlowerScreen> {
-  final _textName = TextEditingController();
-  final _textAddress = TextEditingController();
   final _databaseReference = Firestore.instance;
   final _flowerName = <FlowerNameModel>[
     FlowerNameModel.name('אדר סורי'),
@@ -1510,14 +1508,6 @@ class _AddFlowerScreenState extends State<AddFlowerScreen> {
   FlowerAddressModel _flowerAddressSelected;
 
   @override
-  void dispose() {
-    super.dispose();
-
-    _textName.dispose();
-    _textAddress.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     var now = DateTime.now();
     String formattedDate = DateFormat('MM').format(now);
@@ -1526,6 +1516,7 @@ class _AddFlowerScreenState extends State<AddFlowerScreen> {
     var rng = Random();
 
     return Scaffold(
+      resizeToAvoidBottomPadding: false,
       body: Container(
         child: Center(
           child: Column(
@@ -1535,7 +1526,7 @@ class _AddFlowerScreenState extends State<AddFlowerScreen> {
               SimpleAutocompleteFormField<FlowerNameModel>(
                 decoration: InputDecoration(
                     labelText: 'הכנס שם של צמח', border: OutlineInputBorder()),
-                suggestionsHeight: 80.0,
+                suggestionsHeight: 160.0,
                 itemBuilder: (context, person) => Padding(
                   padding: EdgeInsets.all(8.0),
                   child: Column(
@@ -1566,7 +1557,7 @@ class _AddFlowerScreenState extends State<AddFlowerScreen> {
               SimpleAutocompleteFormField<FlowerAddressModel>(
                 decoration: InputDecoration(
                     labelText: 'הכנס שם של עיר', border: OutlineInputBorder()),
-                suggestionsHeight: 80.0,
+                suggestionsHeight: 160.0,
                 itemBuilder: (context, person) => Padding(
                   padding: EdgeInsets.all(8.0),
                   child: Column(
