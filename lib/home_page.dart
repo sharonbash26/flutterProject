@@ -3,12 +3,7 @@ import 'package:flutterapp2/add_flower.dart';
 import 'package:flutterapp2/search_flower.dart';
 import 'map_screen.dart';
 
-class HomePage extends StatefulWidget {
-  @override
-  _HomePageState createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
+class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,7 +38,7 @@ class _HomePageState extends State<HomePage> {
                       borderRadius: BorderRadius.all(Radius.circular(80.0))),
                   padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
                   child: Text(
-                   'חפש',
+                    'חפש',
                     style: TextStyle(color: Colors.white),
                   ),
                 ),
