@@ -1549,7 +1549,7 @@ class _AddFlowerScreenState extends State<AddFlowerScreen> {
                     setState(() => _flowerNameSelected = value),
                 onSaved: (value) => setState(() => _flowerNameSelected = value),
                 validator: (person) =>
-                    person == null ? 'Invalid person.' : null,
+                    person == null ? 'הצמח לא קיים' : null,
               ),
               SizedBox(
                 height: 20,
@@ -1581,7 +1581,7 @@ class _AddFlowerScreenState extends State<AddFlowerScreen> {
                 onSaved: (value) =>
                     setState(() => _flowerAddressSelected = value),
                 validator: (person) =>
-                    person == null ? 'Invalid person.' : null,
+                    person == null ? 'העיר לא קיימת' : null,
               ),
               RaisedButton(
                 padding: const EdgeInsets.all(0.0),
