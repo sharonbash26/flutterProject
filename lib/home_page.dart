@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutterapp2/add_flower.dart';
-
 import 'map_screen.dart';
 
 class HomePage extends StatefulWidget {
@@ -13,6 +12,9 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
+        decoration: BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage("assets/appSharon.png"), fit: BoxFit.fill)),
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,

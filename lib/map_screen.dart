@@ -54,9 +54,7 @@ class _MapScreenState extends State<MapScreen> {
               .map((documentSnapshot) => Flower.fromJson(documentSnapshot.data))
               .toList();
 
-          setState(() {
-            this.flowers = flowers;
-          });
+          this.flowers = flowers;
         });
       });
     });
@@ -64,11 +62,12 @@ class _MapScreenState extends State<MapScreen> {
     String formattedDate = DateFormat('MM').format(now);
     int myMonth = int.parse(formattedDate);
     print(int.parse(formattedDate));
+    String myCity = city.trim();
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blueAccent,
         title: Text(
-          "Google maps tut",
+          "הצמחים שנמצאים ב$myCity",
           style: TextStyle(color: Colors.white, fontSize: 20),
         ),
       ),
