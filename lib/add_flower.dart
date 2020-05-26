@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutterapp2/home_page.dart';
 import 'package:flutterapp2/model/flower_address_model.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import 'package:simple_autocomplete_formfield/simple_autocomplete_formfield.dart';
 import 'model/flower_name_model.dart';
+import 'model/user_location.dart';
 
 class AddFlowerScreen extends StatefulWidget {
   @override
@@ -1506,9 +1508,11 @@ class _AddFlowerScreenState extends State<AddFlowerScreen> {
   ];
   FlowerNameModel _flowerNameSelected;
   FlowerAddressModel _flowerAddressSelected;
+  var _userLocation;
 
   @override
   Widget build(BuildContext context) {
+    _userLocation = Provider.of<UserLocation>(context);
     return Scaffold(
       resizeToAvoidBottomPadding: false,
       body: Container(
@@ -1621,35 +1625,37 @@ class _AddFlowerScreenState extends State<AddFlowerScreen> {
     var document = Firestore.instance.collection(city).document(id);
     document.get().then((document) {
       setState(() {
-        count = document['count'];
+        if (document.exists) {
+          count = document['count'];
+        }
       });
-    }).then((value) async => await _databaseReference
-            .collection(city)
-            .document(id)
-            .setData({
+    }).then((value) async =>
+        await _databaseReference.collection(city).document(id).setData({
           "date": myMonth,
           "name": name,
-          "count": count != null ? count + 1 : 1
+          "count": count != null ? count + 1 : 1,
+          "latitude": _userLocation.latitude,
+          "longitude": _userLocation.longitude,
         }).then((value) => {
-                  showDialog(
-                    context: context,
-                    builder: (_) => AlertDialog(
-                      title: Text("תודה רבה!"),
-                      content: Text("הדיווח עבר בהצלחה!"),
-                      actions: <Widget>[
-                        FlatButton(
-                          child: Text("בשמחה רבה!"),
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => HomePage(),
-                                ));
-                          },
-                        ),
-                      ],
+              showDialog(
+                context: context,
+                builder: (_) => AlertDialog(
+                  title: Text("תודה רבה!"),
+                  content: Text("הדיווח עבר בהצלחה!"),
+                  actions: <Widget>[
+                    FlatButton(
+                      child: Text("בשמחה רבה!"),
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => HomePage(),
+                            ));
+                      },
                     ),
-                  )
-                }));
+                  ],
+                ),
+              )
+            }));
   }
 }
