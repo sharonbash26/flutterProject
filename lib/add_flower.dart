@@ -4,7 +4,6 @@ import 'package:flutterapp2/home_page.dart';
 import 'package:flutterapp2/model/flower_address_model.dart';
 import 'package:intl/intl.dart';
 import 'package:simple_autocomplete_formfield/simple_autocomplete_formfield.dart';
-import 'dart:math';
 import 'model/flower_name_model.dart';
 
 class AddFlowerScreen extends StatefulWidget {
@@ -15,6 +14,7 @@ class AddFlowerScreen extends StatefulWidget {
 class _AddFlowerScreenState extends State<AddFlowerScreen> {
   final _databaseReference = Firestore.instance;
   final _flowerName = <FlowerNameModel>[
+    FlowerNameModel.name('ורד'),
     FlowerNameModel.name('אדר סורי'),
     FlowerNameModel.name('אוכם המדבר'),
     FlowerNameModel.name('אורן הצנובר'),
@@ -178,7 +178,7 @@ class _AddFlowerScreenState extends State<AddFlowerScreen> {
     FlowerAddressModel.address('אביטל'),
     FlowerAddressModel.address('אביעזר'),
     FlowerAddressModel.address('ירושלים'),
-    FlowerAddressModel.address('ירושלים'),
+    FlowerAddressModel.address('נתניה'),
     FlowerAddressModel.address('ירושלים'),
     FlowerAddressModel.address('ירושלים'),
     FlowerAddressModel.address('ירושלים'),
@@ -1509,12 +1509,6 @@ class _AddFlowerScreenState extends State<AddFlowerScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var now = DateTime.now();
-    String formattedDate = DateFormat('MM').format(now);
-    int myMonth = int.parse(formattedDate);
-
-    var rng = Random();
-
     return Scaffold(
       resizeToAvoidBottomPadding: false,
       body: Container(
@@ -1588,34 +1582,9 @@ class _AddFlowerScreenState extends State<AddFlowerScreen> {
                 padding: const EdgeInsets.all(0.0),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(80.0)),
-                onPressed: () async => {
-                  await _databaseReference
-                      .collection(_flowerAddressSelected.address)
-                      .document(rng.nextInt(1000000000).toString())
-                      .setData({
-                    "date": myMonth,
-                    "name": _flowerNameSelected.name
-                  }).then((value) => {
-                            showDialog(
-                              context: context,
-                              builder: (_) => AlertDialog(
-                                title: Text("תודה רבה!"),
-                                content: Text("הדיווח עבר בהצלחה!"),
-                                actions: <Widget>[
-                                  FlatButton(
-                                    child: Text("בשמחה רבה!"),
-                                    onPressed: () {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) => HomePage(),
-                                          ));
-                                    },
-                                  ),
-                                ],
-                              ),
-                            )
-                          })
+                onPressed: () => {
+                  _btnPress(
+                      _flowerAddressSelected.address, _flowerNameSelected.name)
                 },
                 child: Container(
                   decoration: const BoxDecoration(
@@ -1638,5 +1607,49 @@ class _AddFlowerScreenState extends State<AddFlowerScreen> {
         ),
       ),
     );
+  }
+
+  Future _btnPress(String city, String name) async {
+    var now = DateTime.now();
+    String formattedDate = DateFormat('MM').format(now);
+    int myMonth = int.parse(formattedDate);
+
+    String id = city + name;
+
+    int count;
+
+    var document = Firestore.instance.collection(city).document(id);
+    document.get().then((document) {
+      setState(() {
+        count = document['count'];
+      });
+    }).then((value) async => await _databaseReference
+            .collection(city)
+            .document(id)
+            .setData({
+          "date": myMonth,
+          "name": name,
+          "count": count != null ? count + 1 : 1
+        }).then((value) => {
+                  showDialog(
+                    context: context,
+                    builder: (_) => AlertDialog(
+                      title: Text("תודה רבה!"),
+                      content: Text("הדיווח עבר בהצלחה!"),
+                      actions: <Widget>[
+                        FlatButton(
+                          child: Text("בשמחה רבה!"),
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => HomePage(),
+                                ));
+                          },
+                        ),
+                      ],
+                    ),
+                  )
+                }));
   }
 }

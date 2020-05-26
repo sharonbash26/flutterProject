@@ -81,8 +81,9 @@ class _MapScreenState extends State<MapScreen> {
                   itemCount: flowers.length,
                   itemBuilder: (context, i) {
                     return Center(
-                        child: Text(
-                            myMonth == flowers[i].date ? flowers[i].name : ""));
+                        child: Text(flowers[i].count > 3
+                            ? myMonth == flowers[i].date ? flowers[i].name : ""
+                            : ""));
                   },
                 ),
               ),
