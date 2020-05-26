@@ -1614,7 +1614,7 @@ class _AddFlowerScreenState extends State<AddFlowerScreen> {
     String formattedDate = DateFormat('MM').format(now);
     int myMonth = int.parse(formattedDate);
 
-    String id = city + name;
+    String id = city + name; // id for compare
 
     int count;
 
