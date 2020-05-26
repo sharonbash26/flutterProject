@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutterapp2/model/flower.dart';
+import 'package:flutterapp2/responsive_screen.dart';
 import 'package:geocoder/geocoder.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart' as loc;
@@ -58,11 +59,13 @@ class _MapScreenState extends State<MapScreen> {
         });
       });
     });
+
     var now = DateTime.now();
     String formattedDate = DateFormat('MM').format(now);
     int myMonth = int.parse(formattedDate);
-    print(int.parse(formattedDate));
-    String myCity = city.trim();
+
+    String myCity = city != null ? city.trim() : "";
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blueAccent,
@@ -88,7 +91,7 @@ class _MapScreenState extends State<MapScreen> {
                 ),
               ),
               SizedBox(
-                height: 20,
+                height: ResponsiveScreen().heightMediaQuery(context, 20),
               ),
               Expanded(
                 child: GoogleMap(

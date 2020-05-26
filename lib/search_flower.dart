@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutterapp2/responsive_screen.dart';
 import 'package:simple_autocomplete_formfield/simple_autocomplete_formfield.dart';
 import 'model/flower.dart';
 import 'model/flower_address_model.dart';
@@ -39,7 +40,7 @@ class _SearchFlowerState extends State<SearchFlower> {
               SimpleAutocompleteFormField<FlowerAddressModel>(
                 decoration: InputDecoration(
                     labelText: 'הכנס שם של עיר', border: OutlineInputBorder()),
-                suggestionsHeight: 160.0,
+                suggestionsHeight: ResponsiveScreen().heightMediaQuery(context, 160),
                 itemBuilder: (context, person) => Padding(
                   padding: EdgeInsets.all(8.0),
                   child: Column(
@@ -66,7 +67,7 @@ class _SearchFlowerState extends State<SearchFlower> {
                     person == null ? 'העיר לא קיימת' : null,
               ),
               SizedBox(
-                height: 20,
+                height: ResponsiveScreen().heightMediaQuery(context, 20),
               ),
               RaisedButton(
                 padding: const EdgeInsets.all(0.0),
@@ -90,7 +91,7 @@ class _SearchFlowerState extends State<SearchFlower> {
                 ),
               ),
               SizedBox(
-                height: 20,
+                height: ResponsiveScreen().heightMediaQuery(context, 20),
               ),
               Flexible(
                 child: ListView.builder(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutterapp2/add_flower.dart';
+import 'package:flutterapp2/responsive_screen.dart';
 import 'package:flutterapp2/search_flower.dart';
 import 'map_screen.dart';
 
@@ -44,7 +45,7 @@ class HomePage extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                height: 50,
+                height: ResponsiveScreen().heightMediaQuery(context, 50),
               ),
               RaisedButton(
                 padding: const EdgeInsets.all(0.0),
@@ -74,7 +75,7 @@ class HomePage extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                height: 50,
+                height: ResponsiveScreen().heightMediaQuery(context, 50),
               ),
               RaisedButton(
                 padding: const EdgeInsets.all(0.0),

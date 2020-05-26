@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterapp2/home_page.dart';
 import 'package:flutterapp2/model/flower_address_model.dart';
+import 'package:flutterapp2/responsive_screen.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:simple_autocomplete_formfield/simple_autocomplete_formfield.dart';
@@ -1524,7 +1525,7 @@ class _AddFlowerScreenState extends State<AddFlowerScreen> {
               SimpleAutocompleteFormField<FlowerNameModel>(
                 decoration: InputDecoration(
                     labelText: 'הכנס שם של צמח', border: OutlineInputBorder()),
-                suggestionsHeight: 160.0,
+                suggestionsHeight: ResponsiveScreen().heightMediaQuery(context, 160),
                 itemBuilder: (context, person) => Padding(
                   padding: EdgeInsets.all(8.0),
                   child: Column(
@@ -1549,12 +1550,12 @@ class _AddFlowerScreenState extends State<AddFlowerScreen> {
                 validator: (person) => person == null ? 'הצמח לא קיים' : null,
               ),
               SizedBox(
-                height: 20,
+                height: ResponsiveScreen().heightMediaQuery(context, 20),
               ),
               SimpleAutocompleteFormField<FlowerAddressModel>(
                 decoration: InputDecoration(
                     labelText: 'הכנס שם של עיר', border: OutlineInputBorder()),
-                suggestionsHeight: 160.0,
+                suggestionsHeight: ResponsiveScreen().heightMediaQuery(context, 160),
                 itemBuilder: (context, person) => Padding(
                   padding: EdgeInsets.all(8.0),
                   child: Column(
@@ -1580,7 +1581,7 @@ class _AddFlowerScreenState extends State<AddFlowerScreen> {
                 validator: (person) => person == null ? 'העיר לא קיימת' : null,
               ),
               SizedBox(
-                height: 20,
+                height: ResponsiveScreen().heightMediaQuery(context, 20),
               ),
               RaisedButton(
                 padding: const EdgeInsets.all(0.0),
