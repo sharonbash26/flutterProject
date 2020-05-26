@@ -85,7 +85,7 @@ class _SearchFlowerState extends State<SearchFlower> {
                       borderRadius: BorderRadius.all(Radius.circular(80.0))),
                   padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
                   child: Text(
-                    'הוסף צמח',
+                    'חפש צמח',
                     style: TextStyle(color: Colors.white),
                   ),
                 ),
