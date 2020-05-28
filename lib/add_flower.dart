@@ -1689,20 +1689,51 @@ class _AddFlowerScreenState extends State<AddFlowerScreen> {
               showDialog(
                 context: context,
                 builder: (_) => AlertDialog(
-                  title: Text("תודה רבה!"),
-                  content: Text("הדיווח עבר בהצלחה!"),
-                  actions: <Widget>[
-                    FlatButton(
-                      child: Text("בשמחה רבה!"),
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => HomePage(),
-                            ));
-                      },
-                    ),
-                  ],
+                  backgroundColor: Color(0xFFFDF2E9),
+                  content: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      Icon(
+                        Icons.check_circle,
+                        color: Colors.green,
+                        size: 50,
+                      ),
+                      SizedBox(
+                        height: 6.5,
+                      ),
+                      Center(
+                        child: Text(
+                          "הדיווח עבר בהצלחה\nהמערכת מבצעת בדיקה",
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 6.5,
+                      ),
+                      Container(
+                        width: double.infinity,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(40),
+                          child: RaisedButton(
+                            color: Colors.blueAccent,
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => HomePage(),
+                                  ));
+                            },
+                            child: Text(
+                              "בכיף",
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 25),
+                            ),
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               )
             }));
