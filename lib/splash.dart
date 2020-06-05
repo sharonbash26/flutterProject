@@ -24,9 +24,10 @@ class SplashState extends State<Splash> {
             loaderColor: Colors.transparent),
         Container(
           decoration: BoxDecoration(
-              image: DecorationImage(
-                  image: AssetImage("assets/splash1.png"), fit: BoxFit.fill)),
-        )
+            image: DecorationImage(
+                image: AssetImage("assets/splash1.png"), fit: BoxFit.fill),
+          ),
+        ),
       ],
     );
   }

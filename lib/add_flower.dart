@@ -1519,8 +1519,9 @@ class _AddFlowerScreenState extends State<AddFlowerScreen> {
       body: SafeArea(
         child: Container(
           decoration: BoxDecoration(
-              image: DecorationImage(
-                  image: AssetImage("assets/back3.png"), fit: BoxFit.fill)),
+            image: DecorationImage(
+                image: AssetImage("assets/back3.png"), fit: BoxFit.fill),
+          ),
           child: Column(
             children: <Widget>[
               SizedBox(
@@ -1528,8 +1529,9 @@ class _AddFlowerScreenState extends State<AddFlowerScreen> {
               ),
               Container(
                 margin: EdgeInsets.only(
-                    left: ResponsiveScreen().widthMediaQuery(context, 20),
-                    right: ResponsiveScreen().widthMediaQuery(context, 20)),
+                  left: ResponsiveScreen().widthMediaQuery(context, 20),
+                  right: ResponsiveScreen().widthMediaQuery(context, 20),
+                ),
                 child: SimpleAutocompleteFormField<FlowerNameModel>(
                   decoration: InputDecoration(
                       border: new OutlineInputBorder(
@@ -1545,18 +1547,22 @@ class _AddFlowerScreenState extends State<AddFlowerScreen> {
                   itemBuilder: (context, person) => Padding(
                     padding: EdgeInsets.all(8.0),
                     child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          Text(person.name.toString(),
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black)),
-                        ]),
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Text(
+                          person.name.toString(),
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, color: Colors.black),
+                        ),
+                      ],
+                    ),
                   ),
                   onSearch: (search) async => _flowerName
-                      .where((person) => person.name
-                          .toLowerCase()
-                          .contains(search.toLowerCase()))
+                      .where(
+                        (person) => person.name.toLowerCase().contains(
+                              search.toLowerCase(),
+                            ),
+                      )
                       .toList(),
                   itemFromString: (string) => _flowerName.singleWhere(
                       (person) =>
@@ -1574,8 +1580,9 @@ class _AddFlowerScreenState extends State<AddFlowerScreen> {
               ),
               Container(
                 margin: EdgeInsets.only(
-                    left: ResponsiveScreen().widthMediaQuery(context, 20),
-                    right: ResponsiveScreen().widthMediaQuery(context, 20)),
+                  left: ResponsiveScreen().widthMediaQuery(context, 20),
+                  right: ResponsiveScreen().widthMediaQuery(context, 20),
+                ),
                 child: SimpleAutocompleteFormField<FlowerAddressModel>(
                   decoration: InputDecoration(
                       border: new OutlineInputBorder(
@@ -1591,18 +1598,22 @@ class _AddFlowerScreenState extends State<AddFlowerScreen> {
                   itemBuilder: (context, person) => Padding(
                     padding: EdgeInsets.all(8.0),
                     child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          Text(person.address.toString(),
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black)),
-                        ]),
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Text(
+                          person.address.toString(),
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, color: Colors.black),
+                        ),
+                      ],
+                    ),
                   ),
                   onSearch: (search) async => _flowerCity
-                      .where((person) => person.address
-                          .toLowerCase()
-                          .contains(search.toLowerCase()))
+                      .where(
+                        (person) => person.address.toLowerCase().contains(
+                              search.toLowerCase(),
+                            ),
+                      )
                       .toList(),
                   itemFromString: (string) => _flowerCity.singleWhere(
                       (person) =>
@@ -1621,7 +1632,8 @@ class _AddFlowerScreenState extends State<AddFlowerScreen> {
               ),
               RaisedButton(
                 shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(80.0)),
+                  borderRadius: BorderRadius.circular(80.0),
+                ),
                 onPressed: () => {
                   _btnPress(
                       _flowerAddressSelected.address, _flowerNameSelected.name)
@@ -1629,19 +1641,23 @@ class _AddFlowerScreenState extends State<AddFlowerScreen> {
                 padding: EdgeInsets.all(0.0),
                 child: Ink(
                   decoration: const BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: <Color>[
-                          Colors.blueGrey,
-                          Colors.green,
-                        ],
-                      ),
-                      borderRadius: BorderRadius.all(Radius.circular(80.0))),
+                    gradient: LinearGradient(
+                      colors: <Color>[
+                        Colors.blueGrey,
+                        Colors.green,
+                      ],
+                    ),
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(80.0),
+                    ),
+                  ),
                   child: Container(
                     constraints: BoxConstraints(
-                        minWidth:
-                            ResponsiveScreen().widthMediaQuery(context, 150),
-                        minHeight:
-                            ResponsiveScreen().heightMediaQuery(context, 45)),
+                      minWidth:
+                          ResponsiveScreen().widthMediaQuery(context, 150),
+                      minHeight:
+                          ResponsiveScreen().heightMediaQuery(context, 45),
+                    ),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -1672,70 +1688,80 @@ class _AddFlowerScreenState extends State<AddFlowerScreen> {
     int count;
 
     var document = Firestore.instance.collection(city).document(id);
-    document.get().then((document) {
-      setState(() {
-        if (document.exists) {
-          count = document['count'];
-        }
-      });
-    }).then((value) async =>
-        await _databaseReference.collection(city).document(id).setData({
+    document.get().then(
+      (document) {
+        setState(
+          () {
+            if (document.exists) {
+              count = document['count'];
+            }
+          },
+        );
+      },
+    ).then(
+      (value) async =>
+          await _databaseReference.collection(city).document(id).setData(
+        {
           "date": myMonth,
           "name": name,
           "count": count != null ? count + 1 : 1,
           "latitude": _userLocation.latitude,
           "longitude": _userLocation.longitude,
-        }).then((value) => {
-              showDialog(
-                context: context,
-                builder: (_) => AlertDialog(
-                  backgroundColor: Color(0xFFFDF2E9),
-                  content: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      Icon(
-                        Icons.check_circle,
-                        color: Colors.green,
-                        size: 50,
-                      ),
-                      SizedBox(
-                        height: 6.5,
-                      ),
-                      Center(
-                        child: Text(
-                          "הדיווח עבר בהצלחה\nהמערכת מבצעת בדיקה",
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 6.5,
-                      ),
-                      Container(
-                        width: double.infinity,
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(40),
-                          child: RaisedButton(
-                            color: Colors.blueAccent,
-                            onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => HomePage(),
-                                  ));
-                            },
-                            child: Text(
-                              "בכיף",
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 25),
-                            ),
-                          ),
-                        ),
-                      )
-                    ],
+        },
+      ).then(
+        (value) => {
+          showDialog(
+            context: context,
+            builder: (_) => AlertDialog(
+              backgroundColor: Color(0xFFFDF2E9),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Icon(
+                    Icons.check_circle,
+                    color: Colors.green,
+                    size: 50,
                   ),
-                ),
-              )
-            }));
+                  SizedBox(
+                    height: 6.5,
+                  ),
+                  Center(
+                    child: Text(
+                      "הדיווח עבר בהצלחה\nהמערכת מבצעת בדיקה",
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 6.5,
+                  ),
+                  Container(
+                    width: double.infinity,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(40),
+                      child: RaisedButton(
+                        color: Colors.blueAccent,
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => HomePage(),
+                            ),
+                          );
+                        },
+                        child: Text(
+                          "בכיף",
+                          style: TextStyle(color: Colors.white, fontSize: 25),
+                        ),
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
+          )
+        },
+      ),
+    );
   }
 }

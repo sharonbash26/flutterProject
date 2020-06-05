@@ -34,8 +34,9 @@ class _SearchFlowerState extends State<SearchFlower> {
       resizeToAvoidBottomPadding: false,
       body: Container(
         decoration: BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage("assets/back2.png"), fit: BoxFit.fill)),
+          image: DecorationImage(
+              image: AssetImage("assets/back2.png"), fit: BoxFit.fill),
+        ),
         child: Column(
           children: <Widget>[
             SizedBox(
@@ -43,8 +44,9 @@ class _SearchFlowerState extends State<SearchFlower> {
             ),
             Container(
               margin: EdgeInsets.only(
-                  left: ResponsiveScreen().widthMediaQuery(context, 20),
-                  right: ResponsiveScreen().widthMediaQuery(context, 20)),
+                left: ResponsiveScreen().widthMediaQuery(context, 20),
+                right: ResponsiveScreen().widthMediaQuery(context, 20),
+              ),
               child: SimpleAutocompleteFormField<FlowerAddressModel>(
                 decoration: InputDecoration(
                     border: new OutlineInputBorder(
@@ -62,16 +64,19 @@ class _SearchFlowerState extends State<SearchFlower> {
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
-                        Text(person.address.toString(),
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black)),
+                        Text(
+                          person.address.toString(),
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, color: Colors.black),
+                        ),
                       ]),
                 ),
                 onSearch: (search) async => _flowerCity
-                    .where((person) => person.address
-                        .toLowerCase()
-                        .contains(search.toLowerCase()))
+                    .where(
+                      (person) => person.address.toLowerCase().contains(
+                            search.toLowerCase(),
+                          ),
+                    )
                     .toList(),
                 itemFromString: (string) => _flowerCity.singleWhere(
                     (person) =>
@@ -89,24 +94,29 @@ class _SearchFlowerState extends State<SearchFlower> {
             ),
             RaisedButton(
               shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(80.0)),
-              onPressed: () => {_search(true, _flowerAddressSelected.address)},
+                borderRadius: BorderRadius.circular(80.0),
+              ),
+              onPressed: () => {
+                _search(true, _flowerAddressSelected.address),
+              },
               padding: EdgeInsets.all(0.0),
               child: Ink(
                 decoration: const BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: <Color>[
-                        Colors.blueGrey,
-                        Colors.green,
-                      ],
-                    ),
-                    borderRadius: BorderRadius.all(Radius.circular(80.0))),
+                  gradient: LinearGradient(
+                    colors: <Color>[
+                      Colors.blueGrey,
+                      Colors.green,
+                    ],
+                  ),
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(80.0),
+                  ),
+                ),
                 child: Container(
                   constraints: BoxConstraints(
-                      minWidth:
-                          ResponsiveScreen().widthMediaQuery(context, 150),
-                      minHeight:
-                          ResponsiveScreen().heightMediaQuery(context, 45)),
+                    minWidth: ResponsiveScreen().widthMediaQuery(context, 150),
+                    minHeight: ResponsiveScreen().heightMediaQuery(context, 45),
+                  ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -132,27 +142,34 @@ class _SearchFlowerState extends State<SearchFlower> {
                       itemCount: flowers.length,
                       itemBuilder: (context, i) {
                         return Container(
-                            height: ResponsiveScreen()
-                                .heightMediaQuery(context, 50),
-                            margin: EdgeInsets.only(
-                                left: ResponsiveScreen()
-                                    .widthMediaQuery(context, 20),
-                                right: ResponsiveScreen()
-                                    .widthMediaQuery(context, 20)),
-                            decoration: BoxDecoration(
-                                color: Color(0xFFFDF2E9),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(30))),
-                            child: Center(
-                                child: Text(flowers[i].name,
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      fontFamily: 'ArialNarrow',
-                                      color: Color(0xfa000000),
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold,
-                                      fontStyle: FontStyle.normal,
-                                    ))));
+                          height:
+                              ResponsiveScreen().heightMediaQuery(context, 50),
+                          margin: EdgeInsets.only(
+                            left:
+                                ResponsiveScreen().widthMediaQuery(context, 20),
+                            right:
+                                ResponsiveScreen().widthMediaQuery(context, 20),
+                          ),
+                          decoration: BoxDecoration(
+                            color: Color(0xFFFDF2E9),
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(30),
+                            ),
+                          ),
+                          child: Center(
+                            child: Text(
+                              flowers[i].name,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontFamily: 'ArialNarrow',
+                                color: Color(0xfa000000),
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                                fontStyle: FontStyle.normal,
+                              ),
+                            ),
+                          ),
+                        );
                       },
                       separatorBuilder: (context, i) {
                         return SizedBox(
@@ -171,26 +188,31 @@ class _SearchFlowerState extends State<SearchFlower> {
             _pagination > 0
                 ? RaisedButton(
                     shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(80.0)),
-                    onPressed: () =>
-                        {_search(false, _flowerAddressSelected.address)},
+                      borderRadius: BorderRadius.circular(80.0),
+                    ),
+                    onPressed: () => {
+                      _search(false, _flowerAddressSelected.address),
+                    },
                     padding: EdgeInsets.all(0.0),
                     child: Ink(
                       decoration: const BoxDecoration(
-                          gradient: LinearGradient(
-                            colors: <Color>[
-                              Colors.blueGrey,
-                              Colors.green,
-                            ],
-                          ),
-                          borderRadius:
-                              BorderRadius.all(Radius.circular(80.0))),
+                        gradient: LinearGradient(
+                          colors: <Color>[
+                            Colors.blueGrey,
+                            Colors.green,
+                          ],
+                        ),
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(80.0),
+                        ),
+                      ),
                       child: Container(
                         constraints: BoxConstraints(
-                            minWidth: ResponsiveScreen()
-                                .widthMediaQuery(context, 150),
-                            minHeight: ResponsiveScreen()
-                                .heightMediaQuery(context, 45)),
+                          minWidth:
+                              ResponsiveScreen().widthMediaQuery(context, 150),
+                          minHeight:
+                              ResponsiveScreen().heightMediaQuery(context, 45),
+                        ),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
@@ -212,20 +234,28 @@ class _SearchFlowerState extends State<SearchFlower> {
   }
 
   Future _search(bool search, String city) {
-    setState(() {
-      search ? _pagination = 5 : _pagination += 5;
-    });
+    setState(
+      () {
+        search ? _pagination = 5 : _pagination += 5;
+      },
+    );
     _placeSub?.cancel();
     Stream<QuerySnapshot> _snapshots =
         Firestore.instance.collection(city).limit(_pagination).snapshots();
-    _placeSub = _snapshots.listen((QuerySnapshot snapshot) {
-      final List<Flower> flowers = snapshot.documents
-          .map((documentSnapshot) => Flower.fromJson(documentSnapshot.data))
-          .toList();
+    _placeSub = _snapshots.listen(
+      (QuerySnapshot snapshot) {
+        final List<Flower> flowers = snapshot.documents
+            .map(
+              (documentSnapshot) => Flower.fromJson(documentSnapshot.data),
+            )
+            .toList();
 
-      setState(() {
-        this.flowers = flowers;
-      });
-    });
+        setState(
+          () {
+            this.flowers = flowers;
+          },
+        );
+      },
+    );
   }
 }
