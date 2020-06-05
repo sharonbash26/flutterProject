@@ -38,6 +38,7 @@ dependencies:
   simple_autocomplete_formfield: ^0.2.7
   splashscreen: ^1.2.0
   auto_size_text: ^2.1.0
+  share: ^0.6.4+3
 
 dev_dependencies:
   flutter_test:

@@ -1,14 +1,25 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutterapp2/add_flower.dart';
 import 'package:flutterapp2/responsive_screen.dart';
 import 'package:flutterapp2/search_flower.dart';
+import 'package:share/share.dart';
 import 'scan_screen.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
     return Scaffold(
       body: SafeArea(
         child: Container(
@@ -21,8 +32,21 @@ class HomePage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                SizedBox(
-                  height: ResponsiveScreen().heightMediaQuery(context, 15),
+                Row(
+                  children: <Widget>[
+                    SizedBox(
+                      width: ResponsiveScreen().widthMediaQuery(context, 10),
+                    ),
+                    IconButton(
+                      icon: Icon(
+                        Icons.share,
+                        size: 30,
+                      ),
+                      onPressed: () {
+                        _share();
+                      },
+                    ),
+                  ],
                 ),
                 Text(
                   "ברוך הבא\nבחר אחת מהאפשריות",
@@ -161,5 +185,11 @@ class HomePage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  _share() {
+    final RenderBox box = context.findRenderObject();
+    Share.share('check out my website https://example.com',
+        sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size);
   }
 }
