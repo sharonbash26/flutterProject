@@ -10,10 +10,10 @@ class ResponsiveScreen {
   ResponsiveScreen._internal();
 
   double widthMediaQuery(BuildContext context, double width) {
-    return MediaQuery.of(context).size.width * width / 375;
+    return MediaQuery.of(context).size.width * width / 360;
   }
 
   double heightMediaQuery(BuildContext context, double height) {
-    return MediaQuery.of(context).size.height * height / 667;
+    return MediaQuery.of(context).size.height * height / 640;
   }
 }

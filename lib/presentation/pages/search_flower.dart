@@ -12,18 +12,18 @@ class SearchFlower extends StatefulWidget {
 }
 
 class _SearchFlowerState extends State<SearchFlower> {
-  StreamSubscription<QuerySnapshot> _placeSub;
-  List<Flower> flowers = List();
+  StreamSubscription<QuerySnapshot> _placeSub;// take always information from firebase
+  List<Flower> flowers = List();//crste emty list new list
   final _flowerCity = <FlowerAddressModel>[
     FlowerAddressModel.address('ירושלים'),
     FlowerAddressModel.address('נתניה'),
   ];
   FlowerAddressModel _flowerAddressSelected;
-  int _pagination = 0;
+  int _pagination = 0;// num of item to display  . always just 5 items
 
   @override
   void dispose() {
-    super.dispose();
+    super.dispose();//destory app when close
 
     _placeSub?.cancel();
   }
@@ -51,7 +51,7 @@ class _SearchFlowerState extends State<SearchFlower> {
                 textDirection: TextDirection.rtl,
                 child: SimpleAutocompleteFormField<FlowerAddressModel>(
                   decoration: InputDecoration(
-                      border: new OutlineInputBorder(
+                      border: OutlineInputBorder(
                         borderRadius: const BorderRadius.all(
                           const Radius.circular(30),
                         ),
@@ -61,13 +61,13 @@ class _SearchFlowerState extends State<SearchFlower> {
                       labelText: 'הכנס שם של עיר'),
                   suggestionsHeight:
                       ResponsiveScreen().heightMediaQuery(context, 160),
-                  itemBuilder: (context, person) => Padding(
+                  itemBuilder: (context, address) => Padding(
                     padding: EdgeInsets.all(8.0),
                     child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            person.address.toString(),
+                            address.address.toString(),
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: Colors.black),
@@ -76,21 +76,21 @@ class _SearchFlowerState extends State<SearchFlower> {
                   ),
                   onSearch: (search) async => _flowerCity
                       .where(
-                        (person) => person.address.toLowerCase().contains(
+                        (address) => address.address.toLowerCase().contains(
                               search.toLowerCase(),
                             ),
                       )
                       .toList(),
                   itemFromString: (string) => _flowerCity.singleWhere(
-                      (person) =>
-                          person.address.toLowerCase() == string.toLowerCase(),
+                      (address) =>
+                          address.address.toLowerCase() == string.toLowerCase(),
                       orElse: () => null),
                   onChanged: (value) =>
                       setState(() => _flowerAddressSelected = value),
                   onSaved: (value) =>
                       setState(() => _flowerAddressSelected = value),
-                  validator: (person) =>
-                      person == null ? 'העיר לא קיימת' : null,
+                  validator: (address) =>
+                      address == null ? 'העיר לא קיימת' : null,
                 ),
               ),
             ),
@@ -143,7 +143,7 @@ class _SearchFlowerState extends State<SearchFlower> {
               height: ResponsiveScreen().heightMediaQuery(context, 20),
             ),
             Container(
-              height: ResponsiveScreen().heightMediaQuery(context, 340),
+              height: ResponsiveScreen().heightMediaQuery(context, 230),
               child: Column(
                 children: <Widget>[
                   Expanded(
@@ -249,7 +249,7 @@ class _SearchFlowerState extends State<SearchFlower> {
           search ? _pagination = 5 : _pagination += 5;
         },
       );
-      _placeSub?.cancel();
+      _placeSub?.cancel();//ols search delte if i want new search
       Stream<QuerySnapshot> _snapshots =
           Firestore.instance.collection(city).limit(_pagination).snapshots();
       _placeSub = _snapshots.listen(

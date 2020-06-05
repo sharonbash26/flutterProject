@@ -3,8 +3,7 @@ import 'package:location/location.dart';
 import 'package:flutterapp2/data/models/user_location.dart';
 
 class LocationService {
-  UserLocation _currentLocation;
-  Location _location = Location();
+  Location _location = Location(); // save lon and lat .function from library
   StreamController<UserLocation> _locationController =
       StreamController<UserLocation>.broadcast();
 

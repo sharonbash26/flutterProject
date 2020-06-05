@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutterapp2/presentation/pages/home_page.dart';
 import 'package:flutterapp2/data/models/flower_address_model.dart';
 import 'package:flutterapp2/presentation/utils/responsive_screen.dart';
-import 'package:intl/intl.dart' as rtl;
+import 'package:intl/intl.dart' as intl;
 import 'package:provider/provider.dart';
 import 'package:simple_autocomplete_formfield/simple_autocomplete_formfield.dart';
 import 'package:flutterapp2/data/models/flower_name_model.dart';
@@ -1513,9 +1513,9 @@ class _AddFlowerScreenState extends State<AddFlowerScreen> {
 
   @override
   Widget build(BuildContext context) {
-    _userLocation = Provider.of<UserLocation>(context);
+    _userLocation = Provider.of<UserLocation>(context);//TAKE USER LOCATION
     return Scaffold(
-      resizeToAvoidBottomPadding: false,
+      resizeToAvoidBottomPadding: false, // DO That the key don't up on search
       body: SafeArea(
         child: Container(
           decoration: BoxDecoration(
@@ -1536,7 +1536,7 @@ class _AddFlowerScreenState extends State<AddFlowerScreen> {
                   textDirection: TextDirection.rtl,
                   child: SimpleAutocompleteFormField<FlowerNameModel>(
                     decoration: InputDecoration(
-                        border: new OutlineInputBorder(
+                        border: OutlineInputBorder(
                           borderRadius: const BorderRadius.all(
                             const Radius.circular(30),
                           ),
@@ -1546,13 +1546,13 @@ class _AddFlowerScreenState extends State<AddFlowerScreen> {
                         labelText: 'הכנס שם של צמח'),
                     suggestionsHeight:
                         ResponsiveScreen().heightMediaQuery(context, 160),
-                    itemBuilder: (context, person) => Padding(
+                    itemBuilder: (context, name) => Padding(
                       padding: EdgeInsets.all(8.0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            person.name.toString(),
+                            name.name.toString(),
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: Colors.black),
@@ -1562,21 +1562,21 @@ class _AddFlowerScreenState extends State<AddFlowerScreen> {
                     ),
                     onSearch: (search) async => _flowerName
                         .where(
-                          (person) => person.name.toLowerCase().contains(
+                          (name) => name.name.toLowerCase().contains(
                                 search.toLowerCase(),
                               ),
                         )
                         .toList(),
                     itemFromString: (string) => _flowerName.singleWhere(
-                        (person) =>
-                            person.name.toLowerCase() == string.toLowerCase(),
+                        (name) =>
+                            name.name.toLowerCase() == string.toLowerCase(),
                         orElse: () => null),
                     onChanged: (value) =>
                         setState(() => _flowerNameSelected = value),
                     onSaved: (value) =>
                         setState(() => _flowerNameSelected = value),
-                    validator: (person) =>
-                        person == null ? 'הצמח לא קיים' : null,
+                    validator: (name) =>
+                        name == null ? 'הצמח לא קיים' : null,
                   ),
                 ),
               ),
@@ -1592,7 +1592,7 @@ class _AddFlowerScreenState extends State<AddFlowerScreen> {
                   textDirection: TextDirection.rtl,
                   child: SimpleAutocompleteFormField<FlowerAddressModel>(
                     decoration: InputDecoration(
-                        border: new OutlineInputBorder(
+                        border: OutlineInputBorder(
                           borderRadius: const BorderRadius.all(
                             const Radius.circular(30),
                           ),
@@ -1602,13 +1602,13 @@ class _AddFlowerScreenState extends State<AddFlowerScreen> {
                         labelText: 'הכנס שם של עיר'),
                     suggestionsHeight:
                         ResponsiveScreen().heightMediaQuery(context, 160),
-                    itemBuilder: (context, person) => Padding(
+                    itemBuilder: (context, address) => Padding(
                       padding: EdgeInsets.all(8.0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            person.address.toString(),
+                            address.address.toString(),
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: Colors.black),
@@ -1618,22 +1618,22 @@ class _AddFlowerScreenState extends State<AddFlowerScreen> {
                     ),
                     onSearch: (search) async => _flowerCity
                         .where(
-                          (person) => person.address.toLowerCase().contains(
+                          (address) => address.address.toLowerCase().contains(
                                 search.toLowerCase(),
                               ),
                         )
                         .toList(),
                     itemFromString: (string) => _flowerCity.singleWhere(
-                        (person) =>
-                            person.address.toLowerCase() ==
+                        (address) =>
+                            address.address.toLowerCase() ==
                             string.toLowerCase(),
                         orElse: () => null),
                     onChanged: (value) =>
                         setState(() => _flowerAddressSelected = value),
                     onSaved: (value) =>
                         setState(() => _flowerAddressSelected = value),
-                    validator: (person) =>
-                        person == null ? 'העיר לא קיימת' : null,
+                    validator: (address) =>
+                        address == null ? 'העיר לא קיימת' : null,
                   ),
                 ),
               ),
@@ -1644,7 +1644,7 @@ class _AddFlowerScreenState extends State<AddFlowerScreen> {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(80.0),
                 ),
-                onPressed: () => {
+                onPressed: () => {//check if one of field empty will jump error message to user
                   _btnPress(
                       _flowerAddressSelected != null
                           ? _flowerAddressSelected.address
@@ -1669,7 +1669,7 @@ class _AddFlowerScreenState extends State<AddFlowerScreen> {
                   child: Container(
                     constraints: BoxConstraints(
                       minWidth:
-                          ResponsiveScreen().widthMediaQuery(context, 150),
+                          ResponsiveScreen().widthMediaQuery(context, 150),//propration to screen
                       minHeight:
                           ResponsiveScreen().heightMediaQuery(context, 45),
                     ),
@@ -1742,14 +1742,14 @@ class _AddFlowerScreenState extends State<AddFlowerScreen> {
       );
     } else {
       var now = DateTime.now();
-      String formattedDate = rtl.DateFormat('MM').format(now);
+      String formattedDate = intl.DateFormat('MM').format(now);
       int myMonth = int.parse(formattedDate);
 
       String id = city + name; // id for compare
 
       int count;
 
-      var document = Firestore.instance.collection(city).document(id);
+      var document = _databaseReference.collection(city).document(id);
       document.get().then(
         (document) {
           setState(

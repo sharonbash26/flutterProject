@@ -116,7 +116,7 @@ class _ScanScreenState extends State<ScanScreen> {
                             ),
                             child: Center(
                               child: Text(
-                                flowers[i].count > 0
+                                flowers[i].count > 10
                                     ? myMonth == flowers[i].date
                                         ? flowers[i].name
                                         : ""
@@ -209,7 +209,7 @@ class _ScanScreenState extends State<ScanScreen> {
       },
     );
   }
-
+//convert lon and lat to city
   Future<String> _getCity() async {
     final coordinates =
         new Coordinates(_userLocation.latitude, _userLocation.longitude);
