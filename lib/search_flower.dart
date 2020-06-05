@@ -47,46 +47,51 @@ class _SearchFlowerState extends State<SearchFlower> {
                 left: ResponsiveScreen().widthMediaQuery(context, 20),
                 right: ResponsiveScreen().widthMediaQuery(context, 20),
               ),
-              child: SimpleAutocompleteFormField<FlowerAddressModel>(
-                decoration: InputDecoration(
-                    border: new OutlineInputBorder(
-                      borderRadius: const BorderRadius.all(
-                        const Radius.circular(30),
-                      ),
-                    ),
-                    filled: true,
-                    fillColor: Colors.white,
-                    labelText: 'הכנס שם של עיר'),
-                suggestionsHeight:
-                    ResponsiveScreen().heightMediaQuery(context, 160),
-                itemBuilder: (context, person) => Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Text(
-                          person.address.toString(),
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, color: Colors.black),
+              child: Directionality(
+                textDirection: TextDirection.rtl,
+                child: SimpleAutocompleteFormField<FlowerAddressModel>(
+                  decoration: InputDecoration(
+                      border: new OutlineInputBorder(
+                        borderRadius: const BorderRadius.all(
+                          const Radius.circular(30),
                         ),
-                      ]),
-                ),
-                onSearch: (search) async => _flowerCity
-                    .where(
-                      (person) => person.address.toLowerCase().contains(
-                            search.toLowerCase(),
+                      ),
+                      filled: true,
+                      fillColor: Colors.white,
+                      labelText: 'הכנס שם של עיר'),
+                  suggestionsHeight:
+                      ResponsiveScreen().heightMediaQuery(context, 160),
+                  itemBuilder: (context, person) => Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            person.address.toString(),
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black),
                           ),
-                    )
-                    .toList(),
-                itemFromString: (string) => _flowerCity.singleWhere(
-                    (person) =>
-                        person.address.toLowerCase() == string.toLowerCase(),
-                    orElse: () => null),
-                onChanged: (value) =>
-                    setState(() => _flowerAddressSelected = value),
-                onSaved: (value) =>
-                    setState(() => _flowerAddressSelected = value),
-                validator: (person) => person == null ? 'העיר לא קיימת' : null,
+                        ]),
+                  ),
+                  onSearch: (search) async => _flowerCity
+                      .where(
+                        (person) => person.address.toLowerCase().contains(
+                              search.toLowerCase(),
+                            ),
+                      )
+                      .toList(),
+                  itemFromString: (string) => _flowerCity.singleWhere(
+                      (person) =>
+                          person.address.toLowerCase() == string.toLowerCase(),
+                      orElse: () => null),
+                  onChanged: (value) =>
+                      setState(() => _flowerAddressSelected = value),
+                  onSaved: (value) =>
+                      setState(() => _flowerAddressSelected = value),
+                  validator: (person) =>
+                      person == null ? 'העיר לא קיימת' : null,
+                ),
               ),
             ),
             SizedBox(
@@ -97,7 +102,11 @@ class _SearchFlowerState extends State<SearchFlower> {
                 borderRadius: BorderRadius.circular(80.0),
               ),
               onPressed: () => {
-                _search(true, _flowerAddressSelected.address),
+                _search(
+                    true,
+                    _flowerAddressSelected != null
+                        ? _flowerAddressSelected.address
+                        : ''),
               },
               padding: EdgeInsets.all(0.0),
               child: Ink(
@@ -234,28 +243,30 @@ class _SearchFlowerState extends State<SearchFlower> {
   }
 
   Future _search(bool search, String city) {
-    setState(
-      () {
-        search ? _pagination = 5 : _pagination += 5;
-      },
-    );
-    _placeSub?.cancel();
-    Stream<QuerySnapshot> _snapshots =
-        Firestore.instance.collection(city).limit(_pagination).snapshots();
-    _placeSub = _snapshots.listen(
-      (QuerySnapshot snapshot) {
-        final List<Flower> flowers = snapshot.documents
-            .map(
-              (documentSnapshot) => Flower.fromJson(documentSnapshot.data),
-            )
-            .toList();
+    if (city != '') {
+      setState(
+        () {
+          search ? _pagination = 5 : _pagination += 5;
+        },
+      );
+      _placeSub?.cancel();
+      Stream<QuerySnapshot> _snapshots =
+          Firestore.instance.collection(city).limit(_pagination).snapshots();
+      _placeSub = _snapshots.listen(
+        (QuerySnapshot snapshot) {
+          final List<Flower> flowers = snapshot.documents
+              .map(
+                (documentSnapshot) => Flower.fromJson(documentSnapshot.data),
+              )
+              .toList();
 
-        setState(
-          () {
-            this.flowers = flowers;
-          },
-        );
-      },
-    );
+          setState(
+            () {
+              this.flowers = flowers;
+            },
+          );
+        },
+      );
+    }
   }
 }

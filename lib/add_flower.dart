@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutterapp2/home_page.dart';
 import 'package:flutterapp2/model/flower_address_model.dart';
 import 'package:flutterapp2/responsive_screen.dart';
-import 'package:intl/intl.dart';
+import 'package:intl/intl.dart' as rtl;
 import 'package:provider/provider.dart';
 import 'package:simple_autocomplete_formfield/simple_autocomplete_formfield.dart';
 import 'model/flower_name_model.dart';
@@ -1532,47 +1532,52 @@ class _AddFlowerScreenState extends State<AddFlowerScreen> {
                   left: ResponsiveScreen().widthMediaQuery(context, 20),
                   right: ResponsiveScreen().widthMediaQuery(context, 20),
                 ),
-                child: SimpleAutocompleteFormField<FlowerNameModel>(
-                  decoration: InputDecoration(
-                      border: new OutlineInputBorder(
-                        borderRadius: const BorderRadius.all(
-                          const Radius.circular(30),
+                child: Directionality(
+                  textDirection: TextDirection.rtl,
+                  child: SimpleAutocompleteFormField<FlowerNameModel>(
+                    decoration: InputDecoration(
+                        border: new OutlineInputBorder(
+                          borderRadius: const BorderRadius.all(
+                            const Radius.circular(30),
+                          ),
                         ),
+                        filled: true,
+                        fillColor: Colors.white,
+                        labelText: 'הכנס שם של צמח'),
+                    suggestionsHeight:
+                        ResponsiveScreen().heightMediaQuery(context, 160),
+                    itemBuilder: (context, person) => Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            person.name.toString(),
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black),
+                          ),
+                        ],
                       ),
-                      filled: true,
-                      fillColor: Colors.white,
-                      labelText: 'הכנס שם של צמח'),
-                  suggestionsHeight:
-                      ResponsiveScreen().heightMediaQuery(context, 160),
-                  itemBuilder: (context, person) => Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Text(
-                          person.name.toString(),
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, color: Colors.black),
-                        ),
-                      ],
                     ),
+                    onSearch: (search) async => _flowerName
+                        .where(
+                          (person) => person.name.toLowerCase().contains(
+                                search.toLowerCase(),
+                              ),
+                        )
+                        .toList(),
+                    itemFromString: (string) => _flowerName.singleWhere(
+                        (person) =>
+                            person.name.toLowerCase() == string.toLowerCase(),
+                        orElse: () => null),
+                    onChanged: (value) =>
+                        setState(() => _flowerNameSelected = value),
+                    onSaved: (value) =>
+                        setState(() => _flowerNameSelected = value),
+                    validator: (person) =>
+                        person == null ? 'הצמח לא קיים' : null,
                   ),
-                  onSearch: (search) async => _flowerName
-                      .where(
-                        (person) => person.name.toLowerCase().contains(
-                              search.toLowerCase(),
-                            ),
-                      )
-                      .toList(),
-                  itemFromString: (string) => _flowerName.singleWhere(
-                      (person) =>
-                          person.name.toLowerCase() == string.toLowerCase(),
-                      orElse: () => null),
-                  onChanged: (value) =>
-                      setState(() => _flowerNameSelected = value),
-                  onSaved: (value) =>
-                      setState(() => _flowerNameSelected = value),
-                  validator: (person) => person == null ? 'הצמח לא קיים' : null,
                 ),
               ),
               SizedBox(
@@ -1583,48 +1588,53 @@ class _AddFlowerScreenState extends State<AddFlowerScreen> {
                   left: ResponsiveScreen().widthMediaQuery(context, 20),
                   right: ResponsiveScreen().widthMediaQuery(context, 20),
                 ),
-                child: SimpleAutocompleteFormField<FlowerAddressModel>(
-                  decoration: InputDecoration(
-                      border: new OutlineInputBorder(
-                        borderRadius: const BorderRadius.all(
-                          const Radius.circular(30),
+                child: Directionality(
+                  textDirection: TextDirection.rtl,
+                  child: SimpleAutocompleteFormField<FlowerAddressModel>(
+                    decoration: InputDecoration(
+                        border: new OutlineInputBorder(
+                          borderRadius: const BorderRadius.all(
+                            const Radius.circular(30),
+                          ),
                         ),
+                        filled: true,
+                        fillColor: Colors.white,
+                        labelText: 'הכנס שם של עיר'),
+                    suggestionsHeight:
+                        ResponsiveScreen().heightMediaQuery(context, 160),
+                    itemBuilder: (context, person) => Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            person.address.toString(),
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black),
+                          ),
+                        ],
                       ),
-                      filled: true,
-                      fillColor: Colors.white,
-                      labelText: 'הכנס שם של עיר'),
-                  suggestionsHeight:
-                      ResponsiveScreen().heightMediaQuery(context, 160),
-                  itemBuilder: (context, person) => Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Text(
-                          person.address.toString(),
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, color: Colors.black),
-                        ),
-                      ],
                     ),
+                    onSearch: (search) async => _flowerCity
+                        .where(
+                          (person) => person.address.toLowerCase().contains(
+                                search.toLowerCase(),
+                              ),
+                        )
+                        .toList(),
+                    itemFromString: (string) => _flowerCity.singleWhere(
+                        (person) =>
+                            person.address.toLowerCase() ==
+                            string.toLowerCase(),
+                        orElse: () => null),
+                    onChanged: (value) =>
+                        setState(() => _flowerAddressSelected = value),
+                    onSaved: (value) =>
+                        setState(() => _flowerAddressSelected = value),
+                    validator: (person) =>
+                        person == null ? 'העיר לא קיימת' : null,
                   ),
-                  onSearch: (search) async => _flowerCity
-                      .where(
-                        (person) => person.address.toLowerCase().contains(
-                              search.toLowerCase(),
-                            ),
-                      )
-                      .toList(),
-                  itemFromString: (string) => _flowerCity.singleWhere(
-                      (person) =>
-                          person.address.toLowerCase() == string.toLowerCase(),
-                      orElse: () => null),
-                  onChanged: (value) =>
-                      setState(() => _flowerAddressSelected = value),
-                  onSaved: (value) =>
-                      setState(() => _flowerAddressSelected = value),
-                  validator: (person) =>
-                      person == null ? 'העיר לא קיימת' : null,
                 ),
               ),
               SizedBox(
@@ -1636,7 +1646,12 @@ class _AddFlowerScreenState extends State<AddFlowerScreen> {
                 ),
                 onPressed: () => {
                   _btnPress(
-                      _flowerAddressSelected.address, _flowerNameSelected.name)
+                      _flowerAddressSelected != null
+                          ? _flowerAddressSelected.address
+                          : '',
+                      _flowerNameSelected != null
+                          ? _flowerNameSelected.name
+                          : '')
                 },
                 padding: EdgeInsets.all(0.0),
                 child: Ink(
@@ -1679,89 +1694,137 @@ class _AddFlowerScreenState extends State<AddFlowerScreen> {
   }
 
   Future _btnPress(String city, String name) async {
-    var now = DateTime.now();
-    String formattedDate = DateFormat('MM').format(now);
-    int myMonth = int.parse(formattedDate);
+    if (city == '' || name == '') {
+      showDialog(
+        context: context,
+        builder: (_) => AlertDialog(
+          backgroundColor: Color(0xFFFDF2E9),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Icon(
+                Icons.error,
+                color: Colors.red,
+                size: 50,
+              ),
+              SizedBox(
+                height: 6.5,
+              ),
+              Center(
+                child: Text(
+                  "אחד הפרטים חסר נא הוסף",
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              SizedBox(
+                height: 6.5,
+              ),
+              Container(
+                width: double.infinity,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(40),
+                  child: RaisedButton(
+                    color: Colors.blueAccent,
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: Text(
+                      "תודה",
+                      style: TextStyle(color: Colors.white, fontSize: 25),
+                    ),
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
+      );
+    } else {
+      var now = DateTime.now();
+      String formattedDate = rtl.DateFormat('MM').format(now);
+      int myMonth = int.parse(formattedDate);
 
-    String id = city + name; // id for compare
+      String id = city + name; // id for compare
 
-    int count;
+      int count;
 
-    var document = Firestore.instance.collection(city).document(id);
-    document.get().then(
-      (document) {
-        setState(
-          () {
-            if (document.exists) {
-              count = document['count'];
-            }
-          },
-        );
-      },
-    ).then(
-      (value) async =>
-          await _databaseReference.collection(city).document(id).setData(
-        {
-          "date": myMonth,
-          "name": name,
-          "count": count != null ? count + 1 : 1,
-          "latitude": _userLocation.latitude,
-          "longitude": _userLocation.longitude,
+      var document = Firestore.instance.collection(city).document(id);
+      document.get().then(
+        (document) {
+          setState(
+            () {
+              if (document.exists) {
+                count = document['count'];
+              }
+            },
+          );
         },
       ).then(
-        (value) => {
-          showDialog(
-            context: context,
-            builder: (_) => AlertDialog(
-              backgroundColor: Color(0xFFFDF2E9),
-              content: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  Icon(
-                    Icons.check_circle,
-                    color: Colors.green,
-                    size: 50,
-                  ),
-                  SizedBox(
-                    height: 6.5,
-                  ),
-                  Center(
-                    child: Text(
-                      "הדיווח עבר בהצלחה\nהמערכת מבצעת בדיקה",
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                      textAlign: TextAlign.center,
+        (value) async =>
+            await _databaseReference.collection(city).document(id).setData(
+          {
+            "date": myMonth,
+            "name": name,
+            "count": count != null ? count + 1 : 1,
+            "latitude": _userLocation.latitude,
+            "longitude": _userLocation.longitude,
+          },
+        ).then(
+          (value) => {
+            showDialog(
+              context: context,
+              builder: (_) => AlertDialog(
+                backgroundColor: Color(0xFFFDF2E9),
+                content: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    Icon(
+                      Icons.check_circle,
+                      color: Colors.green,
+                      size: 50,
                     ),
-                  ),
-                  SizedBox(
-                    height: 6.5,
-                  ),
-                  Container(
-                    width: double.infinity,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(40),
-                      child: RaisedButton(
-                        color: Colors.blueAccent,
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => HomePage(),
-                            ),
-                          );
-                        },
-                        child: Text(
-                          "בכיף",
-                          style: TextStyle(color: Colors.white, fontSize: 25),
-                        ),
+                    SizedBox(
+                      height: 6.5,
+                    ),
+                    Center(
+                      child: Text(
+                        "הדיווח עבר בהצלחה\nהמערכת מבצעת בדיקה",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.center,
                       ),
                     ),
-                  )
-                ],
+                    SizedBox(
+                      height: 6.5,
+                    ),
+                    Container(
+                      width: double.infinity,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(40),
+                        child: RaisedButton(
+                          color: Colors.blueAccent,
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => HomePage(),
+                              ),
+                            );
+                          },
+                          child: Text(
+                            "בכיף",
+                            style: TextStyle(color: Colors.white, fontSize: 25),
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
               ),
-            ),
-          )
-        },
-      ),
-    );
+            )
+          },
+        ),
+      );
+    }
   }
 }
