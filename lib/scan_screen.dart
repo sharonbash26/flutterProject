@@ -98,36 +98,41 @@ class _ScanScreenState extends State<ScanScreen> {
                 child: ListView.separated(
                   itemCount: flowers.length,
                   itemBuilder: (context, i) {
-                    return Container(
-                      height: ResponsiveScreen().heightMediaQuery(context, 50),
-                      margin: EdgeInsets.only(
-                        left: ResponsiveScreen().widthMediaQuery(context, 20),
-                        right: ResponsiveScreen().widthMediaQuery(context, 20),
-                      ),
-                      decoration: BoxDecoration(
-                        color: Color(0xFFFDF2E9),
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(30),
-                        ),
-                      ),
-                      child: Center(
-                        child: Text(
-                          flowers[i].count > 0
-                              ? myMonth == flowers[i].date
-                                  ? flowers[i].name
-                                  : ""
-                              : "",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontFamily: 'ArialNarrow',
-                            color: Color(0xfa000000),
-                            fontSize: 25,
-                            fontWeight: FontWeight.bold,
-                            fontStyle: FontStyle.normal,
-                          ),
-                        ),
-                      ),
-                    );
+                    return flowers[i].count > 0 && myMonth == flowers[i].date
+                        ? Container(
+                            height: ResponsiveScreen()
+                                .heightMediaQuery(context, 50),
+                            margin: EdgeInsets.only(
+                              left: ResponsiveScreen()
+                                  .widthMediaQuery(context, 20),
+                              right: ResponsiveScreen()
+                                  .widthMediaQuery(context, 20),
+                            ),
+                            decoration: BoxDecoration(
+                              color: Color(0xFFFDF2E9),
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(30),
+                              ),
+                            ),
+                            child: Center(
+                              child: Text(
+                                flowers[i].count > 0
+                                    ? myMonth == flowers[i].date
+                                        ? flowers[i].name
+                                        : ""
+                                    : "",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontFamily: 'ArialNarrow',
+                                  color: Color(0xfa000000),
+                                  fontSize: 25,
+                                  fontWeight: FontWeight.bold,
+                                  fontStyle: FontStyle.normal,
+                                ),
+                              ),
+                            ),
+                          )
+                        : Container();
                   },
                   separatorBuilder: (context, i) {
                     return SizedBox(
