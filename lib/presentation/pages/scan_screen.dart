@@ -2,12 +2,12 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutterapp2/model/flower.dart';
-import 'package:flutterapp2/responsive_screen.dart';
+import 'package:flutterapp2/data/models/flower.dart';
+import 'package:flutterapp2/presentation/utils/responsive_screen.dart';
 import 'package:geocoder/geocoder.dart';
 import 'package:location/location.dart' as loc;
 import 'package:provider/provider.dart';
-import 'model/user_location.dart';
+import 'package:flutterapp2/data/models/user_location.dart';
 import 'package:intl/intl.dart';
 
 class ScanScreen extends StatefulWidget {

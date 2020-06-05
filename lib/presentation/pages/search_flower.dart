@@ -1,10 +1,10 @@
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutterapp2/responsive_screen.dart';
+import 'package:flutterapp2/presentation/utils/responsive_screen.dart';
 import 'package:simple_autocomplete_formfield/simple_autocomplete_formfield.dart';
-import 'model/flower.dart';
-import 'model/flower_address_model.dart';
+import 'package:flutterapp2/data/models/flower.dart';
+import 'package:flutterapp2/data/models/flower_address_model.dart';
 
 class SearchFlower extends StatefulWidget {
   @override

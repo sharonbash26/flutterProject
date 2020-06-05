@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutterapp2/splash.dart';
+import 'presentation/pages/splash.dart';
 import 'package:provider/provider.dart';
-import 'location_service.dart';
-import 'model/user_location.dart';
+import 'core/services/location_service.dart';
+import 'data/models/user_location.dart';
 
 void main() {
   runApp(

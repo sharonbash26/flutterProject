@@ -2,9 +2,9 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutterapp2/add_flower.dart';
-import 'package:flutterapp2/responsive_screen.dart';
-import 'package:flutterapp2/search_flower.dart';
+import 'package:flutterapp2/presentation/pages/add_flower.dart';
+import 'package:flutterapp2/presentation/utils/responsive_screen.dart';
+import 'package:flutterapp2/presentation/pages/search_flower.dart';
 import 'package:share/share.dart';
 import 'scan_screen.dart';
 

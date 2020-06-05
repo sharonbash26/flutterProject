@@ -1,13 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutterapp2/home_page.dart';
-import 'package:flutterapp2/model/flower_address_model.dart';
-import 'package:flutterapp2/responsive_screen.dart';
+import 'package:flutterapp2/presentation/pages/home_page.dart';
+import 'package:flutterapp2/data/models/flower_address_model.dart';
+import 'package:flutterapp2/presentation/utils/responsive_screen.dart';
 import 'package:intl/intl.dart' as rtl;
 import 'package:provider/provider.dart';
 import 'package:simple_autocomplete_formfield/simple_autocomplete_formfield.dart';
-import 'model/flower_name_model.dart';
-import 'model/user_location.dart';
+import 'package:flutterapp2/data/models/flower_name_model.dart';
+import 'package:flutterapp2/data/models/user_location.dart';
 
 class AddFlowerScreen extends StatefulWidget {
   @override
