@@ -19,9 +19,12 @@ class MyApp extends StatelessWidget {
           create: (context) => LocationService().locationStream,
         ),
       ],
+
       child: MaterialApp(
         home: Splash(),
+          debugShowCheckedModeBanner: false //remove the debug bunner
       ),
     );
+
   }
 }
