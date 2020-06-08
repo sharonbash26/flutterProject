@@ -17,6 +17,10 @@ class _SearchFlowerState extends State<SearchFlower> {
   final _flowerCity = <FlowerAddressModel>[
     FlowerAddressModel.address('ירושלים'),
     FlowerAddressModel.address('נתניה'),
+    FlowerAddressModel.address('אביחיל'),
+    FlowerAddressModel.address('אבו גווייעד'),
+    FlowerAddressModel.address('אבו סנאן'),
+
   ];
   FlowerAddressModel _flowerAddressSelected;
   int _pagination = 0;// num of item to display  . always just 5 items
