@@ -573,13 +573,13 @@ class _AddFlowerScreenState extends State<AddFlowerScreen> {
     FlowerAddressModel.address('הדר עם'),
     FlowerAddressModel.address('הוד שרון'),
     FlowerAddressModel.address('גבעת שמואל'),
-    FlowerAddressModel.address('בני ברק'),
+    FlowerAddressModel.address('בני ברק'),//check from here
     FlowerAddressModel.address('רמת גן'),
     FlowerAddressModel.address('תל אביב'),
     FlowerAddressModel.address('קריית אונו'),
     FlowerAddressModel.address('תנובות'),
     FlowerAddressModel.address('טולכרם'),
-    FlowerAddressModel.address(''),
+    FlowerAddressModel.address('נתניה'),
     FlowerAddressModel.address(''),
     FlowerAddressModel.address(''),
     FlowerAddressModel.address(''),
@@ -1927,7 +1927,7 @@ class _AddFlowerScreenState extends State<AddFlowerScreen> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
                         Text(
-                          'הוסף צמח',
+                          'דווח על צמח אלרגני',
                           style: TextStyle(color: Colors.white),
                         ),
                       ],
@@ -1961,7 +1961,7 @@ class _AddFlowerScreenState extends State<AddFlowerScreen> {
               ),
               Center(
                 child: Text(
-                  "אחד הפרטים או יותר חסר נא הוסף",
+                  "אנא מלא את כול השדות",
                   style: TextStyle(fontWeight: FontWeight.bold),
                   textAlign: TextAlign.center,
                 ),
@@ -1980,7 +1980,7 @@ class _AddFlowerScreenState extends State<AddFlowerScreen> {
                     },
                     child: Text(
                       "תודה",
-                      style: TextStyle(color: Colors.white, fontSize: 25),
+                      style: TextStyle(color: Colors.white, fontSize: 20),
                     ),
                   ),
                 ),
@@ -2062,7 +2062,7 @@ class _AddFlowerScreenState extends State<AddFlowerScreen> {
                           },
                           child: Text(
                             "בכיף",
-                            style: TextStyle(color: Colors.white, fontSize: 25),
+                            style: TextStyle(color: Colors.white, fontSize: 20),
                           ),
                         ),
                       ),

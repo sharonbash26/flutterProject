@@ -125,7 +125,7 @@ class _ScanScreenState extends State<ScanScreen> {
                                 style: TextStyle(
                                   fontFamily: 'ArialNarrow',
                                   color: Color(0xfa000000),
-                                  fontSize: 25,
+                                  fontSize: 15,
                                   fontWeight: FontWeight.bold,
                                   fontStyle: FontStyle.normal,
                                 ),
@@ -176,7 +176,7 @@ class _ScanScreenState extends State<ScanScreen> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
                         Text(
-                          'הוסף',
+                          'הבא',
                           style: TextStyle(color: Colors.white),
                         ),
                       ],

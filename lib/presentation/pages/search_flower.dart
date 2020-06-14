@@ -142,7 +142,7 @@ class _SearchFlowerState extends State<SearchFlower> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
                       Text(
-                        'חפש צמח',
+                        ' חפש צמחים אלרגניים',
                         style: TextStyle(color: Colors.white),
                       ),
                     ],
@@ -183,7 +183,7 @@ class _SearchFlowerState extends State<SearchFlower> {
                               style: TextStyle(
                                 fontFamily: 'ArialNarrow',
                                 color: Color(0xfa000000),
-                                fontSize: 20,
+                                fontSize: 15,
                                 fontWeight: FontWeight.bold,
                                 fontStyle: FontStyle.normal,
                               ),
@@ -238,7 +238,7 @@ class _SearchFlowerState extends State<SearchFlower> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: <Widget>[
                             Text(
-                              'הוסף',
+                              'הבא',
                               style: TextStyle(color: Colors.white),
                             ),
                           ],
