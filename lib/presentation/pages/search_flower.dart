@@ -20,6 +20,13 @@ class _SearchFlowerState extends State<SearchFlower> {
     FlowerAddressModel.address('אביחיל'),
     FlowerAddressModel.address('אבו גווייעד'),
     FlowerAddressModel.address('אבו סנאן'),
+    FlowerAddressModel.address('גבעת שמואל'),
+    FlowerAddressModel.address('רמת גן'),
+    FlowerAddressModel.address('בני ברק'),
+    FlowerAddressModel.address('תל אביב'),
+    FlowerAddressModel.address('קריית אונו'),
+    FlowerAddressModel.address('תנובות'),
+    FlowerAddressModel.address('טולכרם'),
 
   ];
   FlowerAddressModel _flowerAddressSelected;

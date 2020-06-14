@@ -116,7 +116,7 @@ class _ScanScreenState extends State<ScanScreen> {
                             ),
                             child: Center(
                               child: Text(
-                                flowers[i].count > 10
+                                flowers[i].count > 9
                                     ? myMonth == flowers[i].date
                                         ? flowers[i].name
                                         : ""
