@@ -454,7 +454,7 @@ class _SearchFlowerState extends State<SearchFlower> {
 
   @override
   void dispose() {
-    super.dispose(); //destory app when close
+    super.dispose(); //
 
     _placeSub?.cancel();
   }
@@ -507,7 +507,7 @@ class _SearchFlowerState extends State<SearchFlower> {
                             ),
                           ]),
                     ),
-                    onSearch: (search) async => _flowerCity
+                    onSearch: (search) async => _flowerCity// search in list up
                         .where(
                           (address) => address.address.toLowerCase().contains(
                                 search.toLowerCase(),

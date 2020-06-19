@@ -147,7 +147,7 @@ class _ScanScreenState extends State<ScanScreen> {
                 child: ListView.separated(
                   itemCount: flowers.length,
                   itemBuilder: (context, i) {
-                    return flowers[i].count > 0 && myMonth == flowers[i].date
+                    return flowers[i].count > 9 && myMonth == flowers[i].date
                         ? Container(
                             height: ResponsiveScreen()
                                 .heightMediaQuery(context, 50),
