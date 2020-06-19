@@ -17,7 +17,6 @@ class AddFlowerScreen extends StatefulWidget {
 class _AddFlowerScreenState extends State<AddFlowerScreen> {
   final _databaseReference = Firestore.instance;
   final _flowerName = <FlowerNameModel>[
-    FlowerNameModel.name('ורד'),
     FlowerNameModel.name('אדר סורי'),
     FlowerNameModel.name('אוכם המדבר'),
     FlowerNameModel.name('אורן הצנובר'),
@@ -873,6 +872,7 @@ class _AddFlowerScreenState extends State<AddFlowerScreen> {
     FlowerAddressModel.address('ירושלים'),
     FlowerAddressModel.address('ירושלים'),
     FlowerAddressModel.address('ירושלים'),
+    FlowerAddressModel.address('כפר סבא'),
     FlowerAddressModel.address('ירושלים'),
     FlowerAddressModel.address('ירושלים'),
     FlowerAddressModel.address('ירושלים'),
@@ -1729,8 +1729,7 @@ class _AddFlowerScreenState extends State<AddFlowerScreen> {
     FlowerAddressModel.address('ירושלים'),
     FlowerAddressModel.address('ירושלים'),
     FlowerAddressModel.address('ירושלים'),
-    FlowerAddressModel.address('ירושלים'),
-    FlowerAddressModel.address('ירושלים'),
+    FlowerAddressModel.address('הרצליה'),
     FlowerAddressModel.address('ירושלים'),
     FlowerAddressModel.address('ירושלים'),
     FlowerAddressModel.address('ירושלים'),
@@ -1927,7 +1926,7 @@ class _AddFlowerScreenState extends State<AddFlowerScreen> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
                         Text(
-                          'דווח על צמח אלרגני',
+                          'דווח על צמח',
                           style: TextStyle(color: Colors.white),
                         ),
                       ],
@@ -1944,51 +1943,51 @@ class _AddFlowerScreenState extends State<AddFlowerScreen> {
 
   Future _btnPress(String city, String name) async {
     if (city == '' || name == '') {
-      showDialog(
-        context: context,
-        builder: (_) => AlertDialog(
-          backgroundColor: Color(0xFFFDF2E9),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              Icon(
-                Icons.error,
-                color: Colors.red,
-                size: 50,
-              ),
-              SizedBox(
-                height: 6.5,
-              ),
-              Center(
-                child: Text(
-                  "אנא מלא את כול השדות",
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                  textAlign: TextAlign.center,
-                ),
-              ),
-              SizedBox(
-                height: 6.5,
-              ),
-              Container(
-                width: double.infinity,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(40),
-                  child: RaisedButton(
-                    color: Colors.blueAccent,
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    child: Text(
-                      "תודה",
-                      style: TextStyle(color: Colors.white, fontSize: 20),
-                    ),
-                  ),
-                ),
-              )
-            ],
-          ),
-        ),
-      );
+//      showDialog(
+//        context: context,
+//        builder: (_) => AlertDialog(
+//          backgroundColor: Color(0xFFFDF2E9),
+//          content: Column(
+//            mainAxisSize: MainAxisSize.min,
+//            children: <Widget>[
+//              Icon(
+//                Icons.error,
+//                color: Colors.red,
+//                size: 50,
+//              ),
+//              SizedBox(
+//                height: 6.5,
+//              ),
+//              Center(
+//                child: Text(
+//                  "אנא מלא את כול השדות",
+//                  style: TextStyle(fontWeight: FontWeight.bold),
+//                  textAlign: TextAlign.center,
+//                ),
+//              ),
+//              SizedBox(
+//                height: 6.5,
+//              ),
+//              Container(
+//                width: double.infinity,
+//                child: ClipRRect(
+//                  borderRadius: BorderRadius.circular(40),
+//                  child: RaisedButton(
+//                    color: Colors.blueAccent,
+//                    onPressed: () {
+//                      Navigator.pop(context);
+//                    },
+//                    child: Text(
+//                      "תודה",
+//                      style: TextStyle(color: Colors.white, fontSize: 20),
+//                    ),
+//                  ),
+//                ),
+//              )
+//            ],
+//          ),
+//        ),
+//      );
     } else {
       var now = DateTime.now();
       String formattedDate = intl.DateFormat('MM').format(now);

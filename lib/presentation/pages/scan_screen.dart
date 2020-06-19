@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutterapp2/data/models/flower.dart';
+import 'package:flutterapp2/presentation/pages/places_open_now.dart';
 import 'package:flutterapp2/presentation/utils/responsive_screen.dart';
 import 'package:geocoder/geocoder.dart';
 import 'package:location/location.dart' as loc;
@@ -92,7 +93,55 @@ class _ScanScreenState extends State<ScanScreen> {
           child: Column(
             children: <Widget>[
               SizedBox(
-                height: ResponsiveScreen().heightMediaQuery(context, 40),
+                height: ResponsiveScreen().heightMediaQuery(context, 20),
+              ),
+              RaisedButton(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(80.0),
+                ),
+                onPressed: () => {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => PlacesOpenNow(),
+                    ),
+                  ),
+                },
+                padding: EdgeInsets.all(0.0),
+                child: Ink(
+                  decoration: const BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: <Color>[
+                        Colors.blueGrey,
+                        Colors.green,
+                      ],
+                    ),
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(80.0),
+                    ),
+                  ),
+                  child: Container(
+                    constraints: BoxConstraints(
+                      minWidth:
+                          ResponsiveScreen().widthMediaQuery(context, 150),
+                      minHeight:
+                          ResponsiveScreen().heightMediaQuery(context, 45),
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          'מסעדות בקרבתך',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: ResponsiveScreen().heightMediaQuery(context, 20),
               ),
               Expanded(
                 child: ListView.separated(
@@ -209,6 +258,7 @@ class _ScanScreenState extends State<ScanScreen> {
       },
     );
   }
+
 //convert lon and lat to city
   Future<String> _getCity() async {
     final coordinates =
