@@ -16,6 +16,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
+    //19-22 שהמסך יעמוד לא יתהפך
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,//srceen  just stand
       DeviceOrientation.portraitDown,
@@ -85,7 +86,7 @@ class _HomePageState extends State<HomePage> {
                         color: Color(0xff19dbee),
                         textColor: Colors.white,
                         child: AutoSizeText(
-                          "חיפוש\nצמח\n לפי מיקום",
+                          "חיפוש\nצמח \n לפי מיקום",
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontFamily: 'ArialNarrow',

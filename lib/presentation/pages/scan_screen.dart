@@ -17,24 +17,24 @@ class ScanScreen extends StatefulWidget {
 }
 
 class _ScanScreenState extends State<ScanScreen> {
-  StreamSubscription<QuerySnapshot> _placeSub;
-  List<Flower> flowers = List();
+  StreamSubscription<QuerySnapshot> _placeSub; //take always information from firebase
+  List<Flower> _flowers = List();
   var _userLocation;
-  String city;
+  String _city;
   int _pagination = 5;
 
   @override
   void initState() {
     super.initState();
 
-    _getLocationPermission();
+//    _getLocationPermission();
   }
 
   @override
   void dispose() {
     super.dispose();
 
-    _placeSub?.cancel();
+    _placeSub?.cancel();  //אם יוצאים מclass הזה מבטל משיכת מידע מהfirebase
   }
 
   @override
@@ -44,11 +44,11 @@ class _ScanScreenState extends State<ScanScreen> {
       (String value) {
         setState(
           () {
-            city = value;
-            _placeSub?.cancel();
+            _city = value;
+            _placeSub?.cancel();  //cancel  listen from firebase
             Stream<QuerySnapshot> _snapshots = Firestore.instance
                 .collection(
-                  city.trim(),
+                  _city.trim(),
                 )
                 .limit(_pagination)
                 .snapshots();
@@ -57,11 +57,11 @@ class _ScanScreenState extends State<ScanScreen> {
                 final List<Flower> flowers = snapshot.documents
                     .map(
                       (documentSnapshot) =>
-                          Flower.fromJson(documentSnapshot.data),
+                          Flower.fromJson(documentSnapshot.data),//פירוק
                     )
                     .toList();
 
-                this.flowers = flowers;
+                this._flowers = flowers;
               },
             );
           },
@@ -73,7 +73,7 @@ class _ScanScreenState extends State<ScanScreen> {
     String formattedDate = DateFormat('MM').format(now);
     int myMonth = int.parse(formattedDate);
 
-    String myCity = city != null ? city.trim() : "";
+    String myCity = _city != null ? _city.trim() : "";
 
     return Scaffold(
       appBar: AppBar(
@@ -97,7 +97,7 @@ class _ScanScreenState extends State<ScanScreen> {
               ),
               RaisedButton(
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(80.0),
+                  borderRadius: BorderRadius.circular(80.0), //בשביל שכפתור יהיה עגול
                 ),
                 onPressed: () => {
                   Navigator.push(
@@ -145,10 +145,10 @@ class _ScanScreenState extends State<ScanScreen> {
               ),
               Expanded(
                 child: ListView.separated(
-                  itemCount: flowers.length,
+                  itemCount: _flowers.length,
                   itemBuilder: (context, i) {
-                    return flowers[i].count > 9 && myMonth == flowers[i].date
-                        ? Container(
+                    return _flowers[i].count > 9 && myMonth == _flowers[i].date
+                        ? Container( //design of all itembox
                             height: ResponsiveScreen()
                                 .heightMediaQuery(context, 50),
                             margin: EdgeInsets.only(
@@ -165,9 +165,9 @@ class _ScanScreenState extends State<ScanScreen> {
                             ),
                             child: Center(
                               child: Text(
-                                flowers[i].count > 9
-                                    ? myMonth == flowers[i].date
-                                        ? flowers[i].name
+                                _flowers[i].count > 9
+                                    ? myMonth == _flowers[i].date
+                                        ? _flowers[i].name  //התחנה הסופית
                                         : ""
                                     : "",
                                 textAlign: TextAlign.center,
@@ -240,16 +240,16 @@ class _ScanScreenState extends State<ScanScreen> {
     );
   }
 
-  _getLocationPermission() async {
-    var location = loc.Location();
-    try {
-      location.requestPermission();
-    } on PlatformException catch (e) {
-      if (e.code == 'PERMISSION_DENIED') {
-        print('Permission denied');
-      }
-    }
-  }
+//  _getLocationPermission() async {
+//    var location = loc.Location();// אחראי לתת השראה לקבל מיקום
+//    try {
+//      location.requestPermission();
+//    } on PlatformException catch (e) {
+//      if (e.code == 'PERMISSION_DENIED') {
+//        print('Permission denied');
+//      }
+//    }
+//  }
 
   Future _add() {
     setState(

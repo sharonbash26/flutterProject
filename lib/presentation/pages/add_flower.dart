@@ -1794,10 +1794,10 @@ class _AddFlowerScreenState extends State<AddFlowerScreen> {
                         labelText: 'הכנס שם של צמח'),
                     suggestionsHeight:
                         ResponsiveScreen().heightMediaQuery(context, 160),
-                    itemBuilder: (context, name) => Padding(
+                    itemBuilder: (context, name) => Padding(  //מגדיר את הרשימה של השלמה אוטומטית
                       padding: EdgeInsets.all(8.0),
                       child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,  //הוא עובד יחד עם directionally וrtl ביחד הם הופכים מימין לשמאל הכול שיהיה כמו בעברית
                         children: [
                           Text(
                             name.name.toString(),
@@ -1850,7 +1850,7 @@ class _AddFlowerScreenState extends State<AddFlowerScreen> {
                         labelText: 'הכנס שם של עיר'),
                     suggestionsHeight:
                         ResponsiveScreen().heightMediaQuery(context, 160),
-                    itemBuilder: (context, address) => Padding(
+                    itemBuilder: (context, address) => Padding(   //מגדיר רשימה של השלמה אוטומטית מציג פרטים ברשימה
                       padding: EdgeInsets.all(8.0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -1892,7 +1892,7 @@ class _AddFlowerScreenState extends State<AddFlowerScreen> {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(80.0),
                 ),
-                onPressed: () => {//check if one of field empty will jump error message to user
+                onPressed: () => {
                   _btnPress(
                       _flowerAddressSelected != null
                           ? _flowerAddressSelected.address
@@ -1926,7 +1926,7 @@ class _AddFlowerScreenState extends State<AddFlowerScreen> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
                         Text(
-                          'דווח על צמח',
+                          ' דווח על צמח',
                           style: TextStyle(color: Colors.white),
                         ),
                       ],
@@ -1998,7 +1998,7 @@ class _AddFlowerScreenState extends State<AddFlowerScreen> {
       int count;
 
       var document = _databaseReference.collection(city).document(id);
-      document.get().then(
+      document.get().then(  //makbel document
         (document) {
           setState(
             () {

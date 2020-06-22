@@ -12,9 +12,8 @@ class SearchFlower extends StatefulWidget {
 }
 
 class _SearchFlowerState extends State<SearchFlower> {
-  StreamSubscription<QuerySnapshot>
-      _placeSub; // take always information from firebase
-  List<Flower> flowers = List(); //crste emty list new list
+  StreamSubscription<QuerySnapshot> _placeSub; // take always information from firebase
+  List<Flower> _flowers = List(); //crste emty list new list
   final _flowerCity = <FlowerAddressModel>[
     FlowerAddressModel.address('ירושלים'),
     FlowerAddressModel.address('נתניה'),
@@ -454,7 +453,7 @@ class _SearchFlowerState extends State<SearchFlower> {
 
   @override
   void dispose() {
-    super.dispose(); //
+    super.dispose();
 
     _placeSub?.cancel();
   }
@@ -462,7 +461,7 @@ class _SearchFlowerState extends State<SearchFlower> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomPadding: false,
+      resizeToAvoidBottomPadding: false,//Keyboard will not exceed search bar
       body: Container(
         height: double.infinity,
         decoration: BoxDecoration(
@@ -473,7 +472,7 @@ class _SearchFlowerState extends State<SearchFlower> {
           child: Column(
             children: <Widget>[
               SizedBox(
-                height: ResponsiveScreen().heightMediaQuery(context, 60),
+                height: ResponsiveScreen().heightMediaQuery(context, 60),  //ליצור רווחים בין פריט לפריט
               ),
               Container(
                 margin: EdgeInsets.only(
@@ -482,6 +481,7 @@ class _SearchFlowerState extends State<SearchFlower> {
                 ),
                 child: Directionality(
                   textDirection: TextDirection.rtl,
+                  //this for autocompletee
                   child: SimpleAutocompleteFormField<FlowerAddressModel>(
                     decoration: InputDecoration(
                         border: OutlineInputBorder(
@@ -492,29 +492,30 @@ class _SearchFlowerState extends State<SearchFlower> {
                         filled: true,
                         fillColor: Colors.white,
                         labelText: 'הכנס שם של עיר'),
-                    suggestionsHeight:
+                    suggestionsHeight: //מציג גובה מציג לפי גובה  הצעות להשלמה אוטומטית
                         ResponsiveScreen().heightMediaQuery(context, 160),
-                    itemBuilder: (context, address) => Padding(
+                    itemBuilder: (context, address) => Padding( //צריך את זה בשביל הרשימה להלשמה אוטומטית אם יש 3 הצעות רשימה באורך 3
                       padding: EdgeInsets.all(8.0),
                       child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,// להתחיל לשיים טקסט בצד ימין
                           children: [
                             Text(
-                              address.address.toString(),
+                              address.address.toString(),// ליתר בטחון כתובת שבנחרה להפוך לסטרינג
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   color: Colors.black),
                             ),
                           ]),
                     ),
-                    onSearch: (search) async => _flowerCity// search in list up
+                    //
+                    onSearch: (search) async => _flowerCity// התפקיד שלו לחפש אם אני כותבת א מתחיל לחפש דברים ב-א פונקציה מתוך הספרייה של השלמה אוטומטאית
                         .where(
-                          (address) => address.address.toLowerCase().contains(
+                          (address) => address.address.toLowerCase().contains(//בודק אם זה מכיל
                                 search.toLowerCase(),
                               ),
                         )
                         .toList(),
-                    itemFromString: (string) => _flowerCity.singleWhere(
+                    itemFromString: (string) => _flowerCity.singleWhere(//שומר בחירה אחרונה ,דואג שלא יהיה null אם לא בחרתי כלום
                         (address) =>
                             address.address.toLowerCase() ==
                             string.toLowerCase(),
@@ -567,7 +568,7 @@ class _SearchFlowerState extends State<SearchFlower> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
                         Text(
-                          'חפש צמחים',
+                          ' חפש צמחים',
                           style: TextStyle(color: Colors.white),
                         ),
                       ],
@@ -583,8 +584,8 @@ class _SearchFlowerState extends State<SearchFlower> {
                 child: Column(
                   children: <Widget>[
                     Expanded(
-                      child: ListView.separated(
-                        itemCount: flowers.length,
+                      child: ListView.separated( //הרשימה של הפרחים
+                        itemCount: _flowers.length,
                         itemBuilder: (context, i) {
                           return Container(
                             height: ResponsiveScreen()
@@ -603,7 +604,7 @@ class _SearchFlowerState extends State<SearchFlower> {
                             ),
                             child: Center(
                               child: Text(
-                                flowers[i].name,
+                                _flowers[i].name,
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                   fontFamily: 'ArialNarrow',
@@ -616,7 +617,7 @@ class _SearchFlowerState extends State<SearchFlower> {
                             ),
                           );
                         },
-                        separatorBuilder: (context, i) {
+                        separatorBuilder: (context, i) {  //עושה רווח בין פריט לפריט
                           return SizedBox(
                             height: ResponsiveScreen()
                                 .heightMediaQuery(context, 10),
@@ -686,20 +687,20 @@ class _SearchFlowerState extends State<SearchFlower> {
           search ? _pagination = 5 : _pagination += 5;
         },
       );
-      _placeSub?.cancel(); //ols search delte if i want new search
+      _placeSub?.cancel(); //old search delte if i want new search
       Stream<QuerySnapshot> _snapshots =
-          Firestore.instance.collection(city).limit(_pagination).snapshots();
+          Firestore.instance.collection(city).limit(_pagination).snapshots();//snapshot אחראי לעבור על כול הcollction
       _placeSub = _snapshots.listen(
         (QuerySnapshot snapshot) {
           final List<Flower> flowers = snapshot.documents
               .map(
-                (documentSnapshot) => Flower.fromJson(documentSnapshot.data),
+                (documentSnapshot) => Flower.fromJson(documentSnapshot.data),//פירוק פרסר לפי מודל folwer
               )
               .toList();
 
           setState(
             () {
-              this.flowers = flowers;
+              this._flowers = flowers;
             },
           );
         },

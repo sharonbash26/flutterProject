@@ -4,7 +4,7 @@ import 'package:flutterapp2/data/models/error.dart';
 import 'package:flutterapp2/data/models/results.dart';
 import 'package:http/http.dart' as http;
 
-// TAKE THE DATA FRON GOOGLE SERVER
+// TAKE THE DATA FRON GOOGLE SERVER-this all his roll of this class
 class LocationRemoteDataSource {
   //singletone
   static final LocationRemoteDataSource singleton =
@@ -23,7 +23,7 @@ class LocationRemoteDataSource {
   Future responseJsonLocation(double latitude, double longitude) async {
     // create the request to server which you want
     String url =
-        '$_baseUrl?key=$_API_KEY&location=$latitude,$longitude&opennow=true&types=food|restaurant|cafe|bakery&radius=3000';
+        '$_baseUrl?key=$_API_KEY&location=$latitude,$longitude&opennow=true&types=restaurant&radius=5000';
     final response = await http.get(url);//await because take time and because this is asynce
     if (response.statusCode == 200) {
       final data = json.decode(response.body);// NOW RECEIVE JSON

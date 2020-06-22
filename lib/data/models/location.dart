@@ -7,4 +7,4 @@ class Location {
     this.lng = json['lng'];
   }
 }
-//lat ant lon hust parse from json
+//lat ant lon just parse from json

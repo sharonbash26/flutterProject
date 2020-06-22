@@ -8,9 +8,9 @@ class ResponsiveScreen {
   }
 
   ResponsiveScreen._internal();
-
+//mediaQurey.of(context) מציג מידות של פלאפון שרצץ עליו עכשט
   double widthMediaQuery(BuildContext context, double width) {
-    return MediaQuery.of(context).size.width * width / 360;
+    return MediaQuery.of(context).size.width * width / 360;// רוחב של פריט
   }
 
   double heightMediaQuery(BuildContext context, double height) {

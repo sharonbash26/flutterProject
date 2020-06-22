@@ -8,7 +8,6 @@ import 'package:flutterapp2/data/models/user_location.dart';
 import 'package:flutterapp2/data/repositories_impl/location_repo_impl.dart';
 import 'package:flutterapp2/presentation/utils/responsive_screen.dart';
 import 'package:provider/provider.dart';
-import 'package:location/location.dart' as loc;
 import 'package:latlong/latlong.dart' as dis;
 
 class PlacesOpenNow extends StatefulWidget {
@@ -22,13 +21,13 @@ class _PlacesOpenNowState extends State<PlacesOpenNow> {
   List<Results> _places = List(); //new emty list
   String _API_KEY = Constants.API_KEY;
   LocationRepoImpl _locationRepoImpl =
-      LocationRepoImpl(); //concat between method from server side to placeslist
+      LocationRepoImpl(); //concat between method from server side to placeslist like mvvm conact between view to misha side server
 
   @override
   void initState() {
     super.initState();
 
-    _getLocationPermission();
+
   }
 
   @override
@@ -83,9 +82,9 @@ class _PlacesOpenNowState extends State<PlacesOpenNow> {
                                                   .photoReference +
                                               "&key=$_API_KEY"
                                           : "https://upload.wikimedia.org/wikipedia/commons/7/75/No_image_available.png",// photo if image dont avible
-                                      placeholder: (context, url) =>
+                                      placeholder: (context, url) =>    //Rotating circle.
                                           const CircularProgressIndicator(),
-                                      errorWidget: (context, url, error) =>
+                                      errorWidget: (context, url, error) => //זה ממש למקרה שיש שגיאה והתמונה לא עולה
                                           const Icon(Icons.error),
                                     ),
                                     SizedBox(
@@ -101,7 +100,7 @@ class _PlacesOpenNowState extends State<PlacesOpenNow> {
                                 ),
                                 Container(
                                   height: ResponsiveScreen()
-                                      .heightMediaQuery(context, 160),
+                                      .heightMediaQuery(context, 160),//phots design
                                   width: double.infinity,
                                   decoration: BoxDecoration(
                                     gradient: LinearGradient(
@@ -111,21 +110,21 @@ class _PlacesOpenNowState extends State<PlacesOpenNow> {
                                         const Color(0xAA000000),
                                         const Color(0x00000000),
                                         const Color(0x00000000),
-                                        const Color(0xAA000000),
+                                        const Color(0xAA000000),  //עיצוב לתמנות בפינות
                                       ],
                                     ),
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.all(4.0),
+                                  padding: const EdgeInsets.all(4.0),//rahok from kasvot
                                   child: Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: <Widget>[
-                                      _textListView(_places[index].name, 17.0,///this all for displat in app the name and adrees etc
+                                      _textListView(_places[index].name, 17.0,///this size of name of place
                                           0xffE9FFFF),
-                                      _textListView(_places[index].vicinity,
+                                      _textListView(_places[index].vicinity,// this size of vicinity
                                           15.0, 0xFFFFFFFF),
                                       _textListView(_calculateDistance(_meter),
                                           15.0, 0xFFFFFFFF),
@@ -144,17 +143,17 @@ class _PlacesOpenNowState extends State<PlacesOpenNow> {
       ),
     );
   }
-//here i call to him
-  Future<void> _getLocationPermission() async {
-    var location = loc.Location();
-    try {
-      location.requestPermission();
-    } on PlatformException catch (e) {
-      if (e.code == 'PERMISSION_DENIED') {
-        print('Permission denied');
-      }
-    }
-  }
+////here i call to him
+//  Future<void> _getLocationPermission() async {
+//    var location = loc.Location();
+//    try {
+//      location.requestPermission();
+//    } on PlatformException catch (e) {
+//      if (e.code == 'PERMISSION_DENIED') {
+//        print('Permission denied');
+//      }
+//    }
+//  }
 //design for text
   Widget _textListView(String text, double fontSize, int color) {
     return Text(
