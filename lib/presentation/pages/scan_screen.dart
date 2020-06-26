@@ -181,7 +181,7 @@ class _ScanScreenState extends State<ScanScreen> {
                               ),
                             ),
                           )
-                        : Container();
+                               : Container();
                   },
                   separatorBuilder: (context, i) {
                     return SizedBox(

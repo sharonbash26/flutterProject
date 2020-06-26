@@ -1993,7 +1993,7 @@ class _AddFlowerScreenState extends State<AddFlowerScreen> {
       String formattedDate = intl.DateFormat('MM').format(now);
       int myMonth = int.parse(formattedDate);
 
-      String id = city + name; // id for compare
+      String id = city + name; // id
 
       int count;
 
@@ -2003,7 +2003,7 @@ class _AddFlowerScreenState extends State<AddFlowerScreen> {
           setState(
             () {
               if (document.exists) {
-                count = document['count'];
+                count = document['count'];//check his count
               }
             },
           );
@@ -2011,7 +2011,7 @@ class _AddFlowerScreenState extends State<AddFlowerScreen> {
       ).then(
         (value) async =>
             await _databaseReference.collection(city).document(id).setData(
-          {
+          {//here update count
             "date": myMonth,
             "name": name,
             "count": count != null ? count + 1 : 1,
